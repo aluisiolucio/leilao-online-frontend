@@ -19,17 +19,22 @@ export function CreateAccount() {
       <form>
         <div className="space-y-3">
           <h1 className="text-3xl font-bold">Crie a sua conta</h1>
-          <p className="text-sm">Informe seu email e senha para criar uma nova conta e ter acesso</p>
+          <p className="text-sm">Informe seu nome, email e senha para criar uma nova conta e ter acesso</p>
         </div>
 
         <div className="space-y-2 mt-14">
-          <Label htmlFor="email">Nome de usuário</Label>
-          <Input id='email' type="email" placeholder="Email" className="py-6" />
+          <Label htmlFor="name">Nome</Label>
+          <Input id='name' type="text" placeholder="Digite seu nome" className="py-6" />
+        </div>
+
+        <div className="space-y-2 mt-6">
+          <Label htmlFor="email">Email</Label>
+          <Input id='email' type="email" placeholder="Digite seu email" className="py-6" />
         </div>
 
         <div className="space-y-2 mt-6">
           <Label htmlFor="password">Senha</Label>
-          <Input id="password" type="password" placeholder="Senha" className="py-6"/>
+          <Input id="password" type="password" placeholder="Digite sua senha" className="py-6"/>
         </div>
 
         <div className="space-y-2 mt-6">
