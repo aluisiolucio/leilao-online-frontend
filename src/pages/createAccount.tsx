@@ -38,8 +38,8 @@ export function CreateAccount() {
         </div>
 
         <div className="space-y-2 mt-6">
-          <Label htmlFor="password">Confirmar senha</Label>
-          <Input id="password" type="password" placeholder="Confirme sua senha" className="py-6"/>
+          <Label htmlFor="confirm-password">Confirmar senha</Label>
+          <Input id="confirm-password" type="password" placeholder="Confirme sua senha" className="py-6"/>
         </div>
 
         <Button className="w-full mt-16 py-6 text-lg flex items-center justify-center gap-2" type="submit">

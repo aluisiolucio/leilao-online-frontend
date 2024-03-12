@@ -6,6 +6,8 @@ import { IconGoogle } from "@/components/icons/google"
 import { IconGithub } from "@/components/icons/github"
 import { LogIn, Atom } from "lucide-react"
 
+import { Link } from "react-router-dom";
+
 
 export function Login() {
     return (
@@ -57,9 +59,9 @@ export function Login() {
           <div className="mt-8 text-center">
             <p className="text-sm">
               Ainda não possui uma conta?&nbsp;
-              <a href="#" className="">
+              <Link to={"/create-account"} className="">
                 <strong><u>Crie uma conta</u></strong>
-              </a>
+              </Link>
             </p>
           </div>
         </div>
