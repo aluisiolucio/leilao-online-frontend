@@ -3,11 +3,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { IconGoogle } from "@/components/icons/google"
-import { IconGithub } from "@/components/icons/github"
+// import { IconGoogle } from "@/components/icons/google"
+// import { IconGithub } from "@/components/icons/github"
 import { LogIn, Atom } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom";
-// import { AlertModal } from '@/components/alertModal';
 import { useSend } from '@/hooks/useSend';
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner"
@@ -22,13 +21,6 @@ type ApiResponse = {
   accessToken: string;
 }
 
-// type AlertModalProps = {
-//   title: string
-//   description: string
-//   isOpen: boolean
-//   onClose: () => void
-// }
-
 type InputEmpty = {
   email?: boolean;
   password?: boolean;
@@ -37,7 +29,6 @@ type InputEmpty = {
 export function Login() {
   const { error, responseData, sendRequest } = useSend<ApiResponse>('http://localhost:3333/api/auth/signin');
   const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
-  // const [alert, setAlert] = useState<AlertModalProps | null>(null);
   const [inputIsEmpty, setinputIsEmpty] = useState<InputEmpty>({ email: false, password: false });
 
   const navigate = useNavigate();
@@ -58,7 +49,6 @@ export function Login() {
 
   useEffect(() => {
     if (error) {
-      // setAlert({ title: 'Oops!', description: error.message, isOpen: true, onClose: () => setAlert(null) });
       toast.error('Oops!', {
         description: error.message
       });
@@ -77,20 +67,13 @@ export function Login() {
 
   return (
     <div className="h-screen text-primary bg-background dark flex items-center">
-      {/* {alert && 
-        <AlertModal 
-          title={alert.title}
-          description={error?.message || ''}
-          isOpen={alert.isOpen}
-          onClose={() => alert.onClose()} 
-        />} */}
       <Toaster position="top-right" richColors />
       <div className="relative w-0 h-full bg-secondary lg:w-1/2">
         <div className="absolute p-6 invisible lg:visible">
-        <a href="/" className='flex items-center justify-center gap-2 text-2xl'>
-          <Atom className="text-primary"/>
-          <h1 className="font-medium">Leilão Online</h1>
-        </a>
+          <a href="/" className='flex items-center justify-center gap-2 text-2xl'>
+            <Atom className="text-primary"/>
+            <h1 className="font-medium">Leilão Online</h1>
+          </a>
         </div>
         <p className="absolute p-8 font-medium invisible lg:visible bottom-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam in quas quae distinctio inventore explicabo, architecto enim facilis ducimus provident velit, eos quasi culpa veritatis non? Dignissimos nihil nobis eveniet.</p>
         <img src="../src/assets/images/bg.jpg" alt="Imagem de fundo da tela de login" className="w-full h-full object-cover" />
@@ -122,7 +105,7 @@ export function Login() {
 
         <Separator className="my-8" />
 
-        <div className="flex items-cente justify-center gap-3">
+        {/* <div className="flex items-cente justify-center gap-3">
           <Button className="w-full" variant={"outline"}>
             <IconGoogle />
             Google
@@ -131,9 +114,9 @@ export function Login() {
             <IconGithub />
             Github
           </Button>
-        </div>
+        </div> */}
 
-        <div className="mt-8 text-center">
+        <div className="text-center">
           <p className="text-sm">
             Ainda não possui uma conta?&nbsp;
             <Link to={"/create-account"} className="">
