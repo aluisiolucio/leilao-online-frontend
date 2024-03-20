@@ -40,7 +40,7 @@ export function Home() {
                 </h2>
                 <div className="space-y-1">
                   <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
-                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                    <Link to={"/home/category/automoveis"} className="flex items-center gap-2 text-base">
                         <List size={20} />
                         Carros
                     </Link>
