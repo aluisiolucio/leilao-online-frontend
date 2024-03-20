@@ -7,9 +7,9 @@ type CardProps = {
 }
 
 
-export function Card({ title, description, image, width="250px", aspect="aspect-[3/4]" }: CardProps) {
+export function Card({ title, description, image, width="w-[250px]", aspect="aspect-[3/4]" }: CardProps) {
     return (
-        <div className={`space-y-3 w-[${width}]`}>
+        <div className={`space-y-3 ${width}`}>
             <div className="overflow-hidden rounded-md">
                 <img
                     className={`h-auto w-auto object-cover transition-all hover:scale-105 ${aspect}`}

@@ -1,150 +1,123 @@
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-  } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator";
-import { Atom, PlusCircle } from "lucide-react";
-import { Card } from "@/components/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { AlignStartVertical, Atom, List } from "lucide-react";
+import { Link, Outlet } from "react-router-dom";
+import { PlusCircle } from "lucide-react";
 
 export function Home() {
-    return (
-        <div className="text-primary bg-background dark">
-            <div className="p-10 max-w-6xl mx-auto">
-                <header className="flex items-center justify-between">
-                    <a href="#" className='flex items-center justify-center gap-2 text-2xl'>
-                        <Atom className="text-primary"/>
-                        <h1 className="font-medium">Leilão Online</h1>
-                    </a>
-                    <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                </header>
+  return (
+    <div className="text-primary bg-background dark grid lg:grid-cols-6">
+        <div className="pb-12 hidden lg:block">
+          <div className="fixed left-0 top-0 h-full w-72 space-y-6 py-4">
+            <div className="px-6 py-2">
+              <a href="/home/auctions" className='flex items-center gap-2 text-2xl'>
+                  <Atom className="text-primary"/>
+                  <h1 className="font-medium">Leilão Online</h1>
+              </a>
 
-                <Separator className="my-8" />
+              <div>
+                <h2 className="mt-14 mb-4 px-4 text-xl font-semibold tracking-tight">
+                  Descubra
+                </h2>
+                <div className="space-y-1">
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/home/createAuction"} className="flex items-center gap-2 text-base">
+                        <PlusCircle size={20} />
+                        Criar leilão
+                    </Link>
+                  </button>
 
-                <main className="mt-12">
-                    <section className="flex justify-end mb-8 gap-4">
-                        <Button className="p-5">
-                            <Link to={"/createAuction"} className="flex items-center gap-2 font-bold">
-                                <PlusCircle size={20} />
-                                Criar leilão
-                            </Link>
-                        </Button>
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/home/myAuctions"} className="flex items-center gap-2 text-base">
+                      <AlignStartVertical size={20} />
+                      Meus leilões
+                    </Link>
+                  </button>
+                </div>                
+              </div>
 
-                        <Button className="p-5" variant={"secondary"}>
-                            <Link to={"/myAuctions"} className="flex items-center gap-2 font-bold">
-                                Meus leilões
-                            </Link>
-                        </Button>
-                    </section>
+              <div>
+                <h2 className="mt-14 mb-4 px-4 text-xl font-semibold tracking-tight">
+                  Categorias
+                </h2>
+                <div className="space-y-1">
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                        <List size={20} />
+                        Carros
+                    </Link>
+                  </button>
 
-                    <section className="space-y-2">
-                        <h1 className="text-2xl font-bold">Leilões em destaque</h1>
-                        <p className="text-muted-foreground">Confira os leilões que estão em destaque.</p>
-                    </section>
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Imóveis
+                    </Link>
+                  </button>
 
-                    <Separator className="my-5" />
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Eletrônicos
+                    </Link>
+                  </button>
 
-                    <section>
-                        <div className="flex space-x-4 justify-around">
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1611348586804-61bf6c080437%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Colecionáveis
+                    </Link>
+                  </button>
 
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1468817814611-b7edf94b5d60%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Móveis
+                    </Link>
+                  </button>
 
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1528143358888-6d3c7f67bd5d%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Arte
+                    </Link>
+                  </button>
 
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1490300472339-79e4adc6be4a%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-                        </div>
-                    </section>
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Roupas
+                    </Link>
+                  </button>
 
-                    <section className="space-y-2 mt-14">
-                        <h1 className="text-2xl font-bold">Leilões próximos de acontecer</h1>
-                        <p className="text-muted-foreground">Participe dos leilões que estão próximos de acontecer.</p>
-                    </section>
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Livros
+                    </Link>
+                  </button>
 
-                    <Separator className="my-5" />
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Esportes
+                    </Link>
+                  </button>
 
-                    <section>
-                        <div className="flex space-x-4 justify-around">
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="150px"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1611348586804-61bf6c080437%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/category"} className="flex items-center gap-2 text-base">
+                      <List size={20} />
+                      Jóias
+                    </Link>
+                  </button>
+                </div>                
+              </div>
 
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="150px"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1468817814611-b7edf94b5d60%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="150px"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1528143358888-6d3c7f67bd5d%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="150px"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1490300472339-79e4adc6be4a%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="150px"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1513745405825-efaf9a49315f%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="150px"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1446185250204-f94591f7d702%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="150px"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1615247001958-f4bc92fa6a4a%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-                        </div>
-                    </section>
-                </main>
             </div>
+          </div>
         </div>
-    );
+
+        <div className="col-span-3 lg:col-span-5 lg:border-l">
+          <Outlet />
+        </div>
+    </div>
+  );
 }

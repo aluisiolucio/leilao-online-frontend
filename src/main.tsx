@@ -9,6 +9,9 @@ import { Login } from "./pages/login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorPage } from './pages/error.tsx';
 import { Home } from './pages/home.tsx';
+import { Auctions } from './pages/auctions.tsx';
+import { MyAuctions } from './pages/myAuctions.tsx';
+import { CreateAuction } from './pages/createAuction.tsx';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +21,15 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Login /> },
       { path: "create-account", element: <CreateAccount /> },
-      { path: "home", element: <Home />}
+      { 
+        path: "home",
+        element: <Home />,
+        children: [
+          { path: "auctions", element: <Auctions /> },
+          { path: "createAuction", element: <CreateAuction />},
+          { path: "myAuctions", element: <MyAuctions /> }
+        ]
+      }
     ]
   }
 ]);

@@ -55,7 +55,7 @@ export function Login() {
     } else if (responseData) {
       // localStorage.setItem('accessToken', responseData.accessToken);
       console.log(responseData);
-      navigate('/home');
+      navigate('/home/auctions');
     }
   }, [error, responseData]);
 
