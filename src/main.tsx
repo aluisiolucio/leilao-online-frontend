@@ -13,6 +13,8 @@ import { Auctions } from './pages/auctions.tsx';
 import { MyAuctions } from './pages/myAuctions.tsx';
 import { CreateAuction } from './pages/createAuction.tsx';
 import { Category } from './pages/category.tsx';
+import { Inscriptions } from './pages/inscriptions.tsx';
+import { Details } from './pages/details.tsx';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,9 @@ const router = createBrowserRouter([
           { path: "auctions", element: <Auctions /> },
           { path: "createAuction", element: <CreateAuction />},
           { path: "myAuctions", element: <MyAuctions /> },
-          { path: "category/automoveis", element: <Category /> }
+          { path: "inscriptions", element: <Inscriptions /> },
+          { path: "category/automoveis", element: <Category /> },
+          { path: "details/:id", element: <Details /> },
         ]
       }
     ]

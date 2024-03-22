@@ -1,4 +1,4 @@
-import { AlignStartVertical, Atom, List } from "lucide-react";
+import { AlignStartVertical, Atom, BookText, HomeIcon, List } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 import { PlusCircle } from "lucide-react";
 
@@ -19,6 +19,13 @@ export function Home() {
                 </h2>
                 <div className="space-y-1">
                   <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/home/auctions"} className="flex items-center gap-2 text-base">
+                        <HomeIcon size={20} />
+                        Início
+                    </Link>
+                  </button>
+
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
                     <Link to={"/home/createAuction"} className="flex items-center gap-2 text-base">
                         <PlusCircle size={20} />
                         Criar leilão
@@ -29,6 +36,13 @@ export function Home() {
                     <Link to={"/home/myAuctions"} className="flex items-center gap-2 text-base">
                       <AlignStartVertical size={20} />
                       Meus leilões
+                    </Link>
+                  </button>
+
+                  <button className="inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full justify-start">
+                    <Link to={"/home/inscriptions"} className="flex items-center gap-2 text-base">
+                      <BookText size={20}/>
+                      Leilões inscritos
                     </Link>
                   </button>
                 </div>                
