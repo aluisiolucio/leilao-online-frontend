@@ -4,19 +4,16 @@ import { Link } from "react-router-dom";
 export function MyAuctions() {
   return (
     <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
-      <div className="flex items-center justify-between space-y-2">
+      <header className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Bem vindo de volta!</h1>
           <p className="text-muted-foreground">Aqui estão as listas de seus leilões.</p>
         </div>
-
-        <header className="flex items-center justify-end">
-            <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-        </header>
-      </div>
+        <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </header>
 
       <div>
         <div className="flex flex-col space-y-1.5">
@@ -24,11 +21,11 @@ export function MyAuctions() {
         </div>
 
         <div className="mt-4">
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {
               Array.from({ length: 10 }).map((_, index) => (
                 <Link to={"/home/details/1"}>
-                  <div className="flex items-center rounded-xl border bg-card text-card-foreground shadow p-5">
+                  <div className="flex items-center rounded-xl border bg-card text-card-foreground shadow p-5 transition-all hover:scale-105">
                     {/* <span className="relative flex shrink-0 overflow-hidden rounded-md h-16 w-16">
                       <img className="aspect-square h-full w-full" alt="Avatar" src="https://ui.shadcn.com/avatars/01.png" />
                     </span> */}

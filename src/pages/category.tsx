@@ -1,12 +1,26 @@
 import { Car } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function Category() {
     return (
-        <div className="text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-6">
-            <h1 className="text-2xl font-medium">Automóveis</h1>
+        <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
+            <header className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-bold">Bem vindo de volta!</h1>
+                    <p className="text-muted-foreground">Aqui estão as listas de seus leilões.</p>
+                </div>
+                <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+            </header>
+
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+                <div className="col-span-4">
+                    <h1 className="text-2xl font-medium">Automóveis</h1>
+                </div>
                 {
-                    Array.from({ length: 10 }).map((_, index) => (
+                    Array.from({ length: 4 }).map((_, index) => (
                         <div className="rounded-xl border bg-card text-card-foreground shadow transition-all hover:scale-105">
                             <div className="overflow-hidden rounded-t-md">
                                 <img

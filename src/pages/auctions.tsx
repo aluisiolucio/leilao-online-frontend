@@ -8,16 +8,20 @@ import { Card } from "@/components/card";
 
 export function Auctions() {
     return (
-        <div className="text-primary bg-background dark">
+        <div className="h-screen text-primary bg-background dark">
             <div className="py-6 max-w-7xl mx-auto">
-                <header className="flex items-center justify-end">
+                <header className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-bold">Leilões em destaque</h1>
+                        <p className="text-muted-foreground">Confira os leilões que estão em destaque.</p>
+                    </div>
                     <Avatar>
                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                 </header>
 
-                <main className="mt-14">
+                <main>
                     {/* <section className="flex justify-start mb-12 gap-4">
                         <Button className="p-5">
                             <Link to={"/createAuction"} className="flex items-center gap-2 font-bold">
@@ -32,11 +36,6 @@ export function Auctions() {
                             </Link>
                         </Button>
                     </section> */}
-
-                    <section className="space-y-2">
-                        <h1 className="text-2xl font-bold">Leilões em destaque</h1>
-                        <p className="text-muted-foreground">Confira os leilões que estão em destaque.</p>
-                    </section>
 
                     <Separator className="my-5" />
 
@@ -74,7 +73,7 @@ export function Auctions() {
                         </div>
                     </section>
 
-                    <section className="space-y-2 mt-14">
+                    <section className="mt-12">
                         <h1 className="text-2xl font-bold">Leilões próximos de acontecer</h1>
                         <p className="text-muted-foreground">Participe dos leilões que estão próximos de acontecer.</p>
                     </section>
