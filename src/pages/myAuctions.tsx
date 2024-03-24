@@ -89,7 +89,7 @@ export function MyAuctions() {
           <div className="flex items-center space-x-6 lg:space-x-8">
             <div className="flex items-center space-x-2">
               <p className="text-sm">Linhas por página</p>
-              <ComboboxDemo />
+              <Combobox />
             </div>
 
             <div className="flex w-[100px] items-center justify-center text-sm">

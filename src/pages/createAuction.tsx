@@ -1,4 +1,4 @@
-import { DatePickerDemo } from "@/components/datePickerCard";
+import { DatePicker } from "@/components/datePicker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -88,7 +88,7 @@ export function CreateAuction() {
 
                       <div className="space-y-2">
                         <Label>Data de abertura do lote</Label>
-                        <DatePickerDemo />
+                        <DatePicker />
                       </div>
                     </div>
 

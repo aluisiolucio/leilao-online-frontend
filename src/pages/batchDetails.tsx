@@ -1,4 +1,4 @@
-import { CarouselDemo } from "@/components/carousel";
+import { Carousel } from "@/components/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Phone } from "lucide-react";
 
@@ -19,7 +19,7 @@ export function BatchDetails() {
 
             <div className="grid grid-cols-4">
                 <div className="col-span-2">
-                    <CarouselDemo />
+                    <Carousel />
                 </div>
 
                 <div className="ml-20 col-span-2 flex flex-col items-start justify-between rounded-xl border bg-card text-card-foreground shadow p-8">

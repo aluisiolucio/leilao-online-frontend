@@ -39,7 +39,7 @@ const frameworks = [
   },
 ]
 
-export function ComboboxDemo() {
+export function Combobox() {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 

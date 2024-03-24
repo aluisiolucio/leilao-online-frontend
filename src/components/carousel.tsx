@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import {
-  Carousel,
+  Carousel as UICarousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -9,7 +9,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 
-export function CarouselDemo() {
+export function Carousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -29,7 +29,7 @@ export function CarouselDemo() {
 
   return (
     <div>
-      <Carousel setApi={setApi} className="w-full">
+      <UICarousel setApi={setApi} className="w-full">
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index}>
@@ -45,7 +45,7 @@ export function CarouselDemo() {
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
-      </Carousel>
+      </UICarousel>
 
       <div className="mt-3 text-center text-md text-muted-foreground">
         {current} de {count}
