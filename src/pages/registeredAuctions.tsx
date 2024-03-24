@@ -12,7 +12,7 @@ import {
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export function Inscriptions() {
+export function RegisteredAuctions() {
   return (
     <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
         <header className="flex items-center justify-between">

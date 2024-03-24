@@ -24,7 +24,7 @@ export function MyAuctions() {
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {
               Array.from({ length: 10 }).map((_, index) => (
-                <Link to={"/home/details/1"}>
+                <Link to={"/auction/details/1"}>
                   <div className="flex items-center rounded-xl border bg-card text-card-foreground shadow p-5 transition-all hover:scale-105">
                     {/* <span className="relative flex shrink-0 overflow-hidden rounded-md h-16 w-16">
                       <img className="aspect-square h-full w-full" alt="Avatar" src="https://ui.shadcn.com/avatars/01.png" />

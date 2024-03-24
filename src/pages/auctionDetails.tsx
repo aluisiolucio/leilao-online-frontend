@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Phone, TicketPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export function Details() {
+export function AuctionDetails() {
     return (
         <div className="text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
             <header className="flex items-center justify-between">
@@ -70,7 +70,7 @@ export function Details() {
                     {
                         Array.from({ length: 12 }).map((_, index) => (
                             <div>
-                                <Link to={"/home/auctions"}>
+                                <Link to={"/auction/batch/details/2"}>
                                     <div className="flex items-center gap-5">
                                         <img
                                             className="w-16 h-16 object-cover rounded-lg" 
@@ -80,6 +80,7 @@ export function Details() {
                                             <h2 className="text-xl font-medium">Lote {index + 1}</h2>                    
                                             <p className="text-md font-medium">ae88d61a-802d-4235-989a-480e59545adf</p>
                                             <p className="text-md font-medium">Início em: 25/03/2024 às 19:30</p>
+                                            <p className="text-md font-medium">Em andamento</p>
                                             <div>
                                                 <p className="text-sm text-muted-foreground">Lance inicial</p>
                                                 <h2 className="text-xl font-medium">R$ 45.231,89</h2>
@@ -90,7 +91,6 @@ export function Details() {
 
                                 {
                                     index !== 11 && <Separator className="col-span-3 my-5" />
-                                
                                 }
                             </div>
                         ))

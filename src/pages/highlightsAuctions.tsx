@@ -6,7 +6,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/card";
 
-export function Auctions() {
+export function HighlightsAuctions() {
     return (
         <div className="h-screen text-primary bg-background dark">
             <div className="py-6 max-w-7xl mx-auto">
@@ -31,7 +31,7 @@ export function Auctions() {
                         </Button>
 
                         <Button className="p-5" variant={"secondary"}>
-                            <Link to={"/home/myAuctions"} className="flex items-center gap-2 font-bold">
+                            <Link to={"/auction/mine"} className="flex items-center gap-2 font-bold">
                                 Meus leilões
                             </Link>
                         </Button>

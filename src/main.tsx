@@ -8,13 +8,14 @@ import { Login } from "./pages/login";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorPage } from './pages/error.tsx';
-import { Home } from './pages/home.tsx';
-import { Auctions } from './pages/auctions.tsx';
+import { RootAuctions } from './pages/rootAuctions.tsx';
+import { HighlightsAuctions } from './pages/highlightsAuctions.tsx';
 import { MyAuctions } from './pages/myAuctions.tsx';
 import { CreateAuction } from './pages/createAuction.tsx';
-import { Category } from './pages/category.tsx';
-import { Inscriptions } from './pages/inscriptions.tsx';
-import { Details } from './pages/details.tsx';
+import { CategoryAuctions } from './pages/categoryAuctions.tsx';
+import { RegisteredAuctions } from './pages/registeredAuctions.tsx';
+import { AuctionDetails } from './pages/auctionDetails.tsx';
+import { BatchDetails } from './pages/batchDetails.tsx';
 
 const router = createBrowserRouter([
   {
@@ -25,15 +26,16 @@ const router = createBrowserRouter([
       { path: "/", element: <Login /> },
       { path: "create-account", element: <CreateAccount /> },
       { 
-        path: "home",
-        element: <Home />,
+        path: "auction",
+        element: <RootAuctions />,
         children: [
-          { path: "auctions", element: <Auctions /> },
-          { path: "createAuction", element: <CreateAuction />},
-          { path: "myAuctions", element: <MyAuctions /> },
-          { path: "inscriptions", element: <Inscriptions /> },
-          { path: "category/automoveis", element: <Category /> },
-          { path: "details/:id", element: <Details /> },
+          { path: "highlights", element: <HighlightsAuctions /> },
+          { path: "create", element: <CreateAuction />},
+          { path: "mine", element: <MyAuctions /> },
+          { path: "registered", element: <RegisteredAuctions /> },
+          { path: "categories/:category", element: <CategoryAuctions /> },
+          { path: "details/:id", element: <AuctionDetails /> },
+          { path: "batch/details/:id", element: <BatchDetails /> }
         ]
       }
     ]
