@@ -1,25 +1,17 @@
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-  } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/card";
+import { Header } from "@/components/header";
 
 export function HighlightsAuctions() {
     return (
         <div className="h-screen text-primary bg-background dark">
             <div className="py-6 max-w-7xl mx-auto">
-                <header className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-2xl font-bold">Leilões em destaque</h1>
-                        <p className="text-muted-foreground">Confira os leilões que estão em destaque.</p>
-                    </div>
-                    <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                </header>
+                <Header
+                    title="Leilões em destaque"
+                    subtitle="Confira os leilões em destaque e participe."
+                    avatarImgSrc="https://github.com/shadcn.png"
+                    avatarAlt="Imagem do usuário logado"
+                />
 
                 <main>
                     {/* <section className="flex justify-start mb-12 gap-4">
@@ -74,7 +66,7 @@ export function HighlightsAuctions() {
                     </section>
 
                     <section className="mt-12">
-                        <h1 className="text-2xl font-bold">Leilões próximos de acontecer</h1>
+                        <h1 className="text-2xl font-bold">Próximos leilões</h1>
                         <p className="text-muted-foreground">Participe dos leilões que estão próximos de acontecer.</p>
                     </section>
 

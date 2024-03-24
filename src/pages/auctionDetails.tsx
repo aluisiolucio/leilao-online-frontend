@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Phone, TicketPlus } from "lucide-react";
@@ -7,17 +7,12 @@ import { Link } from "react-router-dom";
 export function AuctionDetails() {
     return (
         <div className="text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
-            <header className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold">Bem vindo de volta!</h1>
-                    <p className="text-muted-foreground">Aqui estão as listas de seus leilões.</p>
-                </div>
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-            </header>
-
+            <Header
+                title="Detalhes do leilão"
+                subtitle="Confira os detalhes do leilão e os lotes disponíveis."
+                avatarImgSrc="https://github.com/shadcn.png"
+                avatarAlt="Imagem do usuário logado"
+            />
             <div className="grid grid-cols-3 gap-3">
                 <div className="rounded-xl border bg-card text-card-foreground shadow space-y-8 p-4">
                     <div>

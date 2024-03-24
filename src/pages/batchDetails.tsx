@@ -1,21 +1,17 @@
 import { Carousel } from "@/components/carousel";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Header } from "@/components/header";
 import { Phone } from "lucide-react";
 
 
 export function BatchDetails() {
     return (
         <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
-            <header className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold">Bem vindo de volta!</h1>
-                    <p className="text-muted-foreground">Aqui estão as listas de seus leilões.</p>
-                </div>
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-            </header>
+            <Header
+                title="Detalhes do lote"
+                subtitle="Confira os detalhes do lote e participe do leilão."
+                avatarImgSrc="https://github.com/shadcn.png"
+                avatarAlt="Imagem do usuário logado"
+            />
 
             <div className="grid grid-cols-4">
                 <div className="col-span-2">

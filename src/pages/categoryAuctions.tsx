@@ -1,19 +1,15 @@
 import { Car } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Header } from "@/components/header";
 
 export function CategoryAuctions() {
     return (
         <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
-            <header className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold">Bem vindo de volta!</h1>
-                    <p className="text-muted-foreground">Aqui estão as listas de seus leilões.</p>
-                </div>
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-            </header>
+            <Header
+                title="Leilões por categoria"
+                subtitle="Confira os leilões disponíveis por categoria e participe dos lances."
+                avatarImgSrc="https://github.com/shadcn.png"
+                avatarAlt="Imagem do usuário logado"
+            />
 
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
                 <div className="col-span-4">

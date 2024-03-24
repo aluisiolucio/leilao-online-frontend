@@ -1,25 +1,17 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Header } from "@/components/header";
 import { Link } from "react-router-dom";
 
 export function MyAuctions() {
   return (
     <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Bem vindo de volta!</h1>
-          <p className="text-muted-foreground">Aqui estão as listas de seus leilões.</p>
-        </div>
-        <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </header>
+      <Header
+        title="Meus leilões"
+        subtitle="Confira os leilões que você criou"
+        avatarImgSrc="https://github.com/shadcn.png"
+        avatarAlt="Imagem do usuário logado"
+      />
 
       <div>
-        <div className="flex flex-col space-y-1.5">
-          <h2 className="text-lg font-medium">Meus leilões</h2>
-        </div>
-
         <div className="mt-4">
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {

@@ -1,34 +1,23 @@
 import { DatePicker } from "@/components/datePicker";
+import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea"
 import { CheckCheck, Plus, Trash2 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function CreateAuction() {
   return (
     <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Bem vindo de volta!</h1>
-          <p className="text-muted-foreground">Aqui estão as listas de seus leilões.</p>
-        </div>
-        <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </header>
+      <Header
+        title="Crie seu leilão"
+        subtitle="Informe os dados para criar seu leilão e adicione lotes."
+        avatarImgSrc="https://github.com/shadcn.png"
+        avatarAlt="Imagem do usuário logado"
+      />
 
       <div className="space-y-6">
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Crie seu leilão</h3>
-          <p className="text-sm text-muted-foreground">Informe os dados para criar seu leilão e adicione ao menos um lote.</p>
-        </div>
-
-        <Separator className="my-5" />
-
         <form className="space-y-8">
           <div className="flex items-start gap-6">
             <div className="space-y-2 w-[32rem]">
