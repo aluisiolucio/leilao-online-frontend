@@ -17,6 +17,7 @@ import { RegisteredAuctions } from './pages/registeredAuctions.tsx';
 import { AuctionDetails } from './pages/auctionDetails.tsx';
 import { BatchDetails } from './pages/batchDetails.tsx';
 
+
 const router = createBrowserRouter([
   {
     path: "/",

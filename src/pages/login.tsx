@@ -53,8 +53,7 @@ export function Login() {
         description: error.message
       });
     } else if (responseData) {
-      // localStorage.setItem('accessToken', responseData.accessToken);
-      console.log(responseData);
+      localStorage.setItem('accessToken', responseData.accessToken);
       navigate('/auction/highlights');
     }
   }, [error, responseData]);

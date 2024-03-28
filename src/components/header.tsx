@@ -47,7 +47,10 @@ export function Header({ title, subtitle, avatarImgSrc, avatarAlt }: HeaderProps
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem className="font-medium" onClick={() => navigate("/")}>
+                        <DropdownMenuItem className="font-medium" onClick={() => {
+                            localStorage.removeItem("accessToken")
+                            navigate("/")
+                        }}>
                             Sair
                         </DropdownMenuItem>
                     </DropdownMenuGroup>

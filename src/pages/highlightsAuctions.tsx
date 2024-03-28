@@ -1,11 +1,34 @@
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/card";
 import { Header } from "@/components/header";
+import { Layers } from "lucide-react";
+import { useFetch } from "@/hooks/useFetch";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+
+
+type Auction = {
+    id: number;
+    title: string;
+    description: string;
+    ownerId: string;
+    imagePath: string;
+}
 
 export function HighlightsAuctions() {
+    const { data: auctions, error } = useFetch<Auction[]>('auction', { dataInicial: new Date().toISOString(), dataFinal: new Date().toISOString(), limite: 5 });
+    const { data: nextAuctions, error: nextError } = useFetch<Auction[]>('auction', { dataInicial: new Date().toISOString(), dataFinal: new Date().toISOString(), limite: 8 });
+
+    if (error || nextError) {
+        toast.error('Oops!', {
+            description: error
+        })
+    }
+
     return (
         <div className="h-screen text-primary bg-background dark">
             <div className="py-6 max-w-7xl mx-auto">
+                <Toaster position="top-right" richColors />
                 <Header
                     title="Leilões em destaque"
                     subtitle="Confira os leilões em destaque e participe."
@@ -33,102 +56,46 @@ export function HighlightsAuctions() {
 
                     <section>
                         <div className="flex space-x-4 justify-around">
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1611348586804-61bf6c080437%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1468817814611-b7edf94b5d60%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1528143358888-6d3c7f67bd5d%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1490300472339-79e4adc6be4a%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1513745405825-efaf9a49315f%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
+                            {
+                                auctions?.length ? auctions.map((auction: any) => (
+                                    <Card
+                                        key={auction.id}
+                                        title={auction.title}
+                                        description={auction.description}
+                                        image={auction.imagePath}
+                                    />
+                                )) : <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                                        <Layers size={52}/>
+                                        <p>Os leilões quando disponíveis, apareceram aqui.</p>
+                                    </div>
+                            }
                         </div>
                     </section>
 
                     <section className="mt-12">
-                        <h1 className="text-2xl font-bold">Próximos leilões</h1>
-                        <p className="text-muted-foreground">Participe dos leilões que estão próximos de acontecer.</p>
+                        <h1 className="text-2xl font-bold">Novos leilões</h1>
+                        <p className="text-muted-foreground">Participe dos leilões que acabaram de ser incluidos.</p>
                     </section>
 
                     <Separator className="my-5" />
 
                     <section>
                         <div className="flex space-x-4 justify-around">
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="w-[150px]"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1611348586804-61bf6c080437%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="w-[150px]"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1468817814611-b7edf94b5d60%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="w-[150px]"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1528143358888-6d3c7f67bd5d%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="w-[150px]"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1490300472339-79e4adc6be4a%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="w-[150px]"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1513745405825-efaf9a49315f%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="w-[150px]"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1446185250204-f94591f7d702%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
-
-                            <Card
-                                title="Carros antigos"
-                                description="Participe do leilão de carros antigos."
-                                width="w-[150px]"
-                                aspect="aspect-square"
-                                image="https://ui.shadcn.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1615247001958-f4bc92fa6a4a%3Fw%3D300%26dpr%3D2%26q%3D80&w=256&q=75"
-                            />
+                            {
+                                nextAuctions?.length ? nextAuctions.map((nextAuction: any) => (
+                                    <Card
+                                        key={nextAuction.id}
+                                        title={nextAuction.title}
+                                        description={nextAuction.description}
+                                        width="w-[150px]"
+                                        aspect="aspect-square"
+                                        image={nextAuction.imagePath}
+                                    />
+                                )) : <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                                        <Layers size={52}/>
+                                        <p>Os leilões quando disponíveis, apareceram aqui.</p>
+                                    </div>
+                            }
                         </div>
                     </section>
                 </main>

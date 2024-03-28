@@ -69,8 +69,6 @@ export function CreateAccount() {
           onClick: () => navigate('/'),
         },
       });
-
-      console.log(responseData);
     }
   }, [error, responseData]);
 
