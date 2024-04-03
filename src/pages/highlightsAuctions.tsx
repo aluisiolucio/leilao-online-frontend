@@ -5,6 +5,7 @@ import { Layers } from "lucide-react";
 import { useFetch } from "@/hooks/useFetch";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { Link } from "react-router-dom";
 
 
 type Auction = {
@@ -58,12 +59,14 @@ export function HighlightsAuctions() {
                         <div className="flex space-x-4 justify-around">
                             {
                                 auctions?.length ? auctions.map((auction: any) => (
-                                    <Card
-                                        key={auction.id}
-                                        title={auction.title}
-                                        description={auction.description}
-                                        image={auction.imagePath}
-                                    />
+                                    <Link to={"/auction/details/" + auction.id}>
+                                        <Card
+                                            key={auction.id}
+                                            title={auction.title}
+                                            description={auction.description}
+                                            image={'../src' + auction.imagePath}
+                                        />
+                                    </Link>
                                 )) : <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
                                         <Layers size={52}/>
                                         <p>Os leilões quando disponíveis, apareceram aqui.</p>
@@ -83,14 +86,16 @@ export function HighlightsAuctions() {
                         <div className="flex space-x-4 justify-around">
                             {
                                 nextAuctions?.length ? nextAuctions.map((nextAuction: any) => (
-                                    <Card
-                                        key={nextAuction.id}
-                                        title={nextAuction.title}
-                                        description={nextAuction.description}
-                                        width="w-[150px]"
-                                        aspect="aspect-square"
-                                        image={nextAuction.imagePath}
-                                    />
+                                    <Link to={"/auction/details/" + nextAuction.id}>
+                                        <Card
+                                            key={nextAuction.id}
+                                            title={nextAuction.title}
+                                            description={nextAuction.description}
+                                            width="w-[150px]"
+                                            aspect="aspect-square"
+                                            image={'../src' + nextAuction.imagePath}
+                                        />
+                                    </Link>
                                 )) : <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
                                         <Layers size={52}/>
                                         <p>Os leilões quando disponíveis, apareceram aqui.</p>
