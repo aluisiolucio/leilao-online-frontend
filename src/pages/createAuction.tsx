@@ -4,22 +4,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Toaster } from "@/components/ui/sonner";
 import { Textarea } from "@/components/ui/textarea"
-import { set } from "date-fns";
-import { CheckCheck, Plus } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
+import { CheckCheck, Layers, Plus, Save } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
-type Batch = {
+type AuctionData = {
+  title: string;
+  contactName: string;
+  contactPhone: string;
+  description: string;
+}
+
+type BatchData = {
   id: string;
   title: string;
-  price: string;
+  code: number;
+  price: number;
   openingDate: string;
   specification: string;
+  images: File[];
 }
 
 export function CreateAuction() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [batchs, setBatchs] = useState<Batch[]>([]);
+  const [auction, setAuction] = useState<AuctionData>({ title: '', contactName: '', contactPhone: '', description: '' });
+  const [batchs, setBatchs] = useState<BatchData[]>([]);
   const [isVisible, setIsVisible] = useState(false);
 
   const openSheet = () => {
@@ -30,56 +42,68 @@ export function CreateAuction() {
     setIsSheetOpen(false);
   };
 
-  const addbatch = (newBatch: Batch) => {
+  const addbatch = (newBatch: BatchData) => {
     setBatchs(prevItems => [...prevItems, newBatch]);
   };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setAuction(prevState => ({ ...prevState, [id]: value }));
+  }
 
   const handleFormAuctionSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    setIsVisible(true);
+    if (!auction.title || !auction.contactName || !auction.contactPhone || !auction.description) {
+      toast.error('Oops!', {
+        description: 'Preencha todos os campos para continuar.'
+      });
 
-    console.log(batchs);
+      return;
+    }
+
+    setIsVisible(true);
   }
 
   const handleFormBatchsSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(batchs);
+
   }
 
   return (
     <div className={`${batchs.length < 2 ? 'h-screen' : ''} text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
       <Header
         title="Crie seu leilão"
-        subtitle="Informe os dados para criar seu leilão e adicione lotes."
+        subtitle="Informe os dados para criar seu leilão."
         avatarImgSrc="https://github.com/shadcn.png"
         avatarAlt="Imagem do usuário logado"
       />
+      <Toaster position="top-center" richColors />
 
       <div className="space-y-6">
         <form className="space-y-8" onSubmit={handleFormAuctionSubmit}>
           <div className="flex items-start gap-6">
             <div className="space-y-2 w-[32rem]">
               <Label htmlFor="title">Título</Label>
-              <Input id='title' type="text" placeholder="Informe o título do leilão" />
+              <Input id='title' type="text" placeholder="Informe o título do leilão" value={auction.title} onChange={handleInputChange} />
               <p className="text-[0.8rem] text-muted-foreground">Esse é o nome que aparecerá publicamente para todos</p>
             </div>
 
             <div className="space-y-2 w-96">
               <Label htmlFor="contactName">Nome do leiloeiro</Label>
-              <Input id='contactName' type="text" placeholder="Informe o número para contato" />
+              <Input id='contactName' type="text" placeholder="Informe o número para contato" value={auction.contactName} onChange={handleInputChange} />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="telefone">Contato do leiloeiro</Label>
-              <Input id='telefone' type="tel" placeholder="(xx) x xxxx-xxxx" />
+              <Label htmlFor="contactPhone">Contato do leiloeiro</Label>
+              <Input id='contactPhone' type="tel" placeholder="(xx) x xxxx-xxxx" value={auction.contactPhone} onChange={handleInputChange} />
             </div>
           </div>
 
           <div className="space-y-2 w-[32rem]">
             <Label htmlFor="description">Descrição</Label>
-            <Textarea id="description" placeholder="Coloque as informações necessárias aqui" className="h-40" />
+            <Textarea id="description" placeholder="Coloque as informações necessárias aqui" className="h-40" value={auction.description} onChange={(e) => setAuction({ ...auction, description: e.target.value})} />
           </div>
 
           <div className="flex items-center justify-end">
@@ -112,7 +136,7 @@ export function CreateAuction() {
             <form className="space-y-8" onSubmit={handleFormBatchsSubmit}>
               <div className={`col-span-3 rounded-xl bg-card text-card-foreground shadow p-5 ${batchs.length > 0 ? 'border' : ''}`}>
                 {
-                  batchs.map((batch, index) => (
+                  batchs.length > 0 ? batchs.map((batch, index) => (
                     <div key={batch.id}>
                       <div className="flex items-center gap-5">
                           <img
@@ -121,13 +145,12 @@ export function CreateAuction() {
                           
                           <div className="flex items-center justify-between w-full">                            
                               <h2 className="text-xl font-medium">{batch.title}</h2>                    
-                              <h2 className="text-md font-medium">Número: 87575287</h2>                   
-                              <p className="text-md font-medium">sdh4sdtr4hs5dr7thrd</p>
-                              <p className="text-md font-medium">Início em: 02/04/2024, 19:20</p>
-                              <p className="text-md font-medium">Em andamento</p>
+                              <h2 className="text-md font-medium">Número: {batch.code}</h2>
+                              <p className="text-md font-medium">Início em: {batch.openingDate}</p>
+                              <p className="text-md font-medium">Aberto</p>
                               <div>
                                   <p className="text-sm text-muted-foreground">Lance inicial</p>
-                                  <h2 className="text-xl font-medium">R$ 40.500,85</h2>
+                                  <h2 className="text-xl font-medium">{formatPrice(batch.price)}</h2>
                               </div>
                           </div>
                       </div>
@@ -136,7 +159,10 @@ export function CreateAuction() {
                           index !== batchs.length -1 && <Separator className="col-span-3 my-5" />
                       }
                     </div>
-                  ))
+                  )) : <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                          <Layers size={52}/>
+                          <p>Adicione ao menos um lote para criar seu leilão</p>
+                      </div>
                 }
               </div>
 
@@ -144,8 +170,8 @@ export function CreateAuction() {
                 batchs.length > 0 &&
                 <div className="flex items-center justify-end">
                   <Button type="submit" className="text-md flex items-center gap-2 p-5" variant={"ghost"}>
-                    <CheckCheck size={20}/>
-                    Salvar Lote(s)
+                    <Save size={20} />
+                    Salvar Tudo
                   </Button>
                 </div>
               }

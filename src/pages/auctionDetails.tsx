@@ -1,9 +1,9 @@
 import { Header } from "@/components/header";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { useFetch } from "@/hooks/useFetch";
-import { Layers, Phone, TicketPlus } from "lucide-react";
+import { formatDate, formatPrice } from "@/lib/utils";
+import { Phone } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -19,17 +19,6 @@ type Auction = {
         phone: string;
     }
     batchs: []
-}
-
-function formatDate(dateString: string) {
-    const date = new Date(dateString);
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-    return new Intl.DateTimeFormat('pt-BR', options).format(date);
-}
-
-function formatPrice(price: number) {
-    const options = { style: 'currency', currency: 'BRL' };
-    return new Intl.NumberFormat('pt-BR', options).format(price);
 }
 
 export function AuctionDetails() {
