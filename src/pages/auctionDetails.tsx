@@ -34,8 +34,6 @@ type Auction = {
 
 export function AuctionDetails() {
     const { id } = useParams()
-    // let price = 0;
-    // let initialDate = new Date();
     const { data: auction, error } = useFetch<Auction>('auction/' + id);
 
     if (error) {
@@ -45,7 +43,7 @@ export function AuctionDetails() {
     }
 
     return (
-        <div className={`${ '' ? auction?.batchs : 'h-screen' } text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
+        <div className={`${ auction?.batchs.length <= 2 ? "h-screen" : "" } text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
             <Toaster position="top-right" richColors />
             <Header
                 title="Detalhes do leilão"
@@ -86,8 +84,6 @@ export function AuctionDetails() {
                         auction?.batchs.map((batch: Batch, index) => (
                             <div key={batch.id}>
                                 <Link to={"/auction/batch/details/" + batch.id}>
-
-                                    {/* TODO: Refatorar */}
                                     <div className="flex items-center gap-5">
                                         <img
                                             className="w-16 h-16 object-cover rounded-lg" 
@@ -102,14 +98,6 @@ export function AuctionDetails() {
                                                 <p className="text-sm text-muted-foreground">Lance inicial</p>
                                                 <h2 className="text-xl font-medium">{formatPrice(batch.price)}</h2>
                                             </div>
-
-                                            <Button
-                                                type="button"
-                                                className="text-md flex items-center gap-2 p-5"
-                                                variant={"link"}
-                                            >
-                                                <Trash2 size={26} />
-                                            </Button>
                                         </div>
                                     </div>
                                 </Link>

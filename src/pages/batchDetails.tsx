@@ -1,9 +1,77 @@
 import { Carousel } from "@/components/carousel";
 import { Header } from "@/components/header";
-import { Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/sonner";
+import { useFetch } from "@/hooks/useFetch";
+import { useSend } from "@/hooks/useSend";
+import { formatPrice } from "@/lib/utils";
+import { set } from "date-fns";
+import { TicketPlus, Waypoints } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
+type Batch = {
+    id: string;
+    auctionId: string;
+    title: string;
+    specification: string;
+    code: number;
+    price: number;
+    status: string;
+    isEnrolled: boolean;
+    startDateTime: string;
+    images: string[];
+}
+
+type Inscription = {
+    batchId: string;
+    auctionId: string;
+}
+
+type Response = {
+    id: string;
+}
 
 export function BatchDetails() {
+    const { id } = useParams()
+    let { data: batch, error } = useFetch<Batch>('batch/' + id);
+    const { error: errorPost, responseData, sendRequest } = useSend<Response>(
+        "http://localhost:3333/api/batch/enroll",
+        true
+      );
+
+    if (error) {
+        toast.error('Oops!', {
+            description: error
+        })
+    }
+
+    const handleInscription = async () => {
+        const inscription: Inscription = {
+            batchId: batch?.id || '',
+            auctionId: batch?.auctionId || ''
+        }
+
+        await sendRequest(inscription)
+    }
+
+    useEffect(() => {
+        if (error) {
+          toast.error("Oops!", {
+            description: "Ocorreu um erro ao realizar inscrição.",
+          });
+        } else if (responseData) {
+            toast.success("Sucesso!", {
+                description: "Inscrição feita com suceeso.",
+            });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
+      }, [errorPost, responseData]);
+
     return (
         <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
             <Header
@@ -12,43 +80,69 @@ export function BatchDetails() {
                 avatarImgSrc="https://github.com/shadcn.png"
                 avatarAlt="Imagem do usuário logado"
             />
+            <Toaster position="top-right" richColors />
 
             <div className="grid grid-cols-4">
-                <div className="col-span-2">
-                    <Carousel />
-                </div>
+                <div className="col-span-4 flex items-center justify-between">
+                    <div className="flex flex-col mr-20">
+                        <Carousel images={batch?.images || []} />
 
-                <div className="ml-20 col-span-2 flex flex-col items-start justify-between rounded-xl border bg-card text-card-foreground shadow p-8">
-                    <h1 className="text-2xl font-semibold">A&B Leilões - Carros antigos e Colecionáveis</h1>
-                    <p>Uma seleção fascinante de lotes aguarda os entusiastas automobilísticos.
-                       Desde raridades vintage até ícones da era clássica, os lotes apresentam uma ampla variedade
-                       de modelos e marcas, cada um contando sua própria história única sobre a evolução
-                       da indústria automotiva. Os colecionadores encontrarão verdadeiras joias, meticulosamente
-                       preservadas e restauradas, prontas para conquistar os corações dos aficionados por carros
-                       de todas as gerações. Com uma mistura emocionante de elegância intemporal e desempenho cativante,
-                       este leilão promete oferecer uma experiência memorável para aqueles que buscam adicionar
-                       uma peça de história automobilística às suas coleções pessoais.</p>
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                            <h2 className="text-lg font-medium">Contato</h2>
-                            <Phone size={18} />
-                        </div>
-                        <div>
-                            <p>Nome: A&B Leilões</p>
-                            <p>Telefone: (11) 99999-9999</p>
-                        </div>
+                        <Button
+                            type="button"
+                            onClick={handleInscription}
+                            className="flex items-center gap-3 text-lg py-6 col-span-2 mt-6"
+                            variant={"secondary"}
+                            disabled={batch?.isEnrolled}
+                        >
+                            <TicketPlus size={24} />
+                            {
+                                batch?.isEnrolled ? 'Inscrito' : 'Participar'
+                            }
+                        </Button>
                     </div>
-                </div>
-
-                <div className="mt-6 mb-3">
-                    <h2 className="text-xl font-medium">Especificações</h2>
-                </div>
-
-                <div className="col-span-4 rounded-xl border bg-card text-card-foreground shadow p-5">
-                    <div className="flex items-center gap-5">
+                    <div className="h-full w-full flex flex-col items-start justify-between rounded-xl border bg-card text-card-foreground shadow p-7">
+                        <div className="flex items-center justify-between w-full">
+                            <h1 className="text-2xl font-semibold">{batch?.title}</h1>
+                            <p className="text-muted-foreground">Código: {batch?.code}</p>
+                        </div>
                         
+                        <p>{batch?.specification}</p>
+
+                        <div className="flex items-end justify-between w-full">
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <h2 className="text-lg font-medium">Status</h2>
+                                    <Waypoints size={18} />
+                                </div>
+
+                                <div>
+                                    <p>{batch?.status}</p>
+                                    <p>Começa em: {batch?.startDateTime}</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <p className="text-md text-muted-foreground">Lance inicial</p>
+                                <h2 className="text-2xl font-medium">{formatPrice(batch?.price || 0)}</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                {/* <Separator className="col-span-4 my-6" />
+
+                <div className="col-span-4 space-y-3">
+                    <div>
+                        <h2 className="text-xl font-medium">Especificações</h2>
+                    </div>
+
+                    <div className="rounded-xl border bg-card text-card-foreground shadow p-5">
+                        <div>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta qui dolore ipsam numquam possimus doloremque libero atque, reprehenderit sequi perspiciatis voluptas facilis animi vel accusantium ipsa quisquam porro! Vitae, odit.</p>
+                        </div>
+                    </div>
+                </div>
+                */}
             </div>
         </div>
     )

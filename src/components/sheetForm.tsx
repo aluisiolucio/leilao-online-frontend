@@ -24,7 +24,7 @@ type Batch = {
   id: string;
   title: string;
   code: number;
-  price: number;
+  price: string;
   openingDate: string;
   openingHour: string;
   specification: string;
@@ -36,7 +36,7 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
     id: "",
     title: "",
     code: 0,
-    price: 0,
+    price: "",
     openingDate: "",
     openingHour: "",
     specification: "",
@@ -54,7 +54,7 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
 
     if (
       !batch.title ||
-      batch.price === 0 ||
+      !batch.price ||
       !batch.openingDate ||
       !batch.openingHour ||
       !batch.specification ||
@@ -84,7 +84,7 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
       id: "",
       title: "",
       code: 0,
-      price: 0,
+      price: "",
       openingDate: "",
       openingHour: "",
       specification: "",

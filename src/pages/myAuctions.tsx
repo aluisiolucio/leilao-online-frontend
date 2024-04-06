@@ -1,6 +1,7 @@
 import { Header } from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
 import { useFetch } from "@/hooks/useFetch";
+import { Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -33,18 +34,27 @@ export function MyAuctions() {
         <div className="mt-4">
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {
-              auctions?.map((auction) => (
-                <div key={auction.id}>
-                  <Link to={`/auction/details/${auction.id}`}>
-                    <div className="flex items-center rounded-xl border bg-card text-card-foreground shadow p-5 transition-all hover:scale-105">
-                      <div className="space-y-1">
-                        <p className="text-sm font-medium leading-none">{auction.title}</p>
-                        <p className="text-sm text-muted-foreground">Qtd. lotes: {auction.batchCount}</p>
+              auctions?.length || 0 > 0 ? (
+                auctions?.map((auction) => (
+                  <div key={auction.id}>
+                    <Link to={`/auction/myAuction/details/${auction.id}`}>
+                      <div className="flex items-center rounded-xl border bg-card text-card-foreground shadow p-5 transition-all hover:scale-105">
+                        <div className="space-y-1">
+                          <p className="text-sm font-medium leading-none">{auction.title}</p>
+                          <p className="text-sm text-muted-foreground">Qtd. lotes: {auction.batchCount}</p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <div className="col-span-3">
+                  <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                    <Layers size={52} />
+                    <p>Seus leilões criados, aparecerão aqui</p>
+                  </div>
                 </div>
-              ))
+              )
             }
           </div>
         </div>

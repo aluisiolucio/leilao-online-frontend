@@ -9,7 +9,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 
-export function Carousel() {
+export function Carousel({ images }: { images: string[]}) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -19,7 +19,7 @@ export function Carousel() {
       return
     }
 
-    setCount(api.scrollSnapList().length)
+    setCount(images.length)
     setCurrent(api.selectedScrollSnap() + 1)
 
     api.on("select", () => {
@@ -29,15 +29,16 @@ export function Carousel() {
 
   return (
     <div>
-      <UICarousel setApi={setApi} className="w-full">
+      <UICarousel setApi={setApi} className="w-[572px]">
         <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
+          {images.map((image, index) => (
             <CarouselItem key={index}>
               <Card>
                 <CardContent className="flex items-center justify-center p-4">
                   <img
-                      className="w-full h-full object-cover rounded-lg" 
-                      src="https://images.unsplash.com/photo-1458408990864-27997f8c2984?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Imagem carro" />
+                      className="w-full h-96 object-cover rounded-lg" 
+                      src={image} 
+                      alt="Imagens da galeria" />
                 </CardContent>
               </Card>
             </CarouselItem>

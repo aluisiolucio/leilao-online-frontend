@@ -17,10 +17,9 @@ type Auction = {
 }
 
 export function HighlightsAuctions() {
-    const { data: auctions, error } = useFetch<Auction[]>('auction', { dataInicial: new Date().toISOString(), dataFinal: new Date().toISOString(), limite: 5 });
-    const { data: nextAuctions, error: nextError } = useFetch<Auction[]>('auction', { dataInicial: new Date().toISOString(), dataFinal: new Date().toISOString(), limite: 8 });
+    const { data: auctions, error } = useFetch<Auction[]>('auction', { dataInicial: new Date().toISOString(), dataFinal: new Date().toISOString() });
 
-    if (error || nextError) {
+    if (error) {
         toast.error('Oops!', {
             description: error
         })
@@ -38,39 +37,26 @@ export function HighlightsAuctions() {
                 />
 
                 <main>
-                    {/* <section className="flex justify-start mb-12 gap-4">
-                        <Button className="p-5">
-                            <Link to={"/createAuction"} className="flex items-center gap-2 font-bold">
-                                <PlusCircle size={20} />
-                                Criar leilão
-                            </Link>
-                        </Button>
-
-                        <Button className="p-5" variant={"secondary"}>
-                            <Link to={"/auction/mine"} className="flex items-center gap-2 font-bold">
-                                Meus leilões
-                            </Link>
-                        </Button>
-                    </section> */}
-
                     <Separator className="my-5" />
 
                     <section>
                         <div className="flex space-x-4 justify-around">
                             {
-                                auctions?.length ? auctions.map((auction: any) => (
+                                auctions?.length || 0 > 0 ? auctions?.slice(0, 5).map((auction: Auction) => (
                                     <Link to={"/auction/details/" + auction.id}>
                                         <Card
                                             key={auction.id}
                                             title={auction.title}
-                                            description={auction.description}
-                                            image={'../src' + auction.imagePath}
+                                            description={""}
+                                            image={auction.imagePath}
                                         />
                                     </Link>
-                                )) : <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                                )) : (
+                                    <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
                                         <Layers size={52}/>
                                         <p>Os leilões quando disponíveis, apareceram aqui.</p>
                                     </div>
+                                )
                             }
                         </div>
                     </section>
@@ -85,21 +71,23 @@ export function HighlightsAuctions() {
                     <section>
                         <div className="flex space-x-4 justify-around">
                             {
-                                nextAuctions?.length ? nextAuctions.map((nextAuction: any) => (
-                                    <Link to={"/auction/details/" + nextAuction.id}>
+                                auctions?.length || 0 > 0 ? auctions?.reverse().slice(0, 8).map((auction: Auction) => (
+                                    <Link to={"/auction/details/" + auction.id}>
                                         <Card
-                                            key={nextAuction.id}
-                                            title={nextAuction.title}
-                                            description={nextAuction.description}
+                                            key={auction.id}
+                                            title={auction.title}
+                                            description={""}
                                             width="w-[150px]"
                                             aspect="aspect-square"
-                                            image={'../src' + nextAuction.imagePath}
+                                            image={auction.imagePath}
                                         />
                                     </Link>
-                                )) : <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                                )) : (
+                                    <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
                                         <Layers size={52}/>
                                         <p>Os leilões quando disponíveis, apareceram aqui.</p>
                                     </div>
+                                )
                             }
                         </div>
                     </section>

@@ -21,7 +21,7 @@ export function Header({ title, subtitle, avatarImgSrc, avatarAlt }: HeaderProps
     const navigate = useNavigate();
 
     return (
-        <header className="flex items-center justify-between">
+        <header className="flex items-center justify-between gap-2">
             <div>
                 <h1 className="text-2xl font-bold">{title}</h1>
                 <p className="text-muted-foreground">{subtitle}</p>

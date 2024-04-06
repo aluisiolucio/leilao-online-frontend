@@ -158,7 +158,7 @@ export function CreateAuction() {
   }, [error, responseData]);
 
   return (
-    <div className={`${batchs.length < 2 ? "h-screen" : ""} text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
+    <div className={`${batchs.length <= 2 ? "h-screen" : ""} text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
       <Header
         title="Crie seu leilão"
         subtitle="Informe os dados para criar seu leilão."
@@ -171,9 +171,9 @@ export function CreateAuction() {
         {
           auction.image.size !== 0 ? (
             <div className="rounded-xl border bg-card text-card-foreground shadow space-y-8 p-4">
-              <div className="h-full">
+              <div className="h-80">
                   <img
-                    className="h-full object-cover rounded-lg" 
+                    className="w-full h-full object-cover rounded-lg" 
                     src={URL.createObjectURL(auction.image)} alt="Imagem carro" />
               </div>
             </div>

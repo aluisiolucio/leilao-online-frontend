@@ -16,6 +16,7 @@ import { CategoryAuctions } from './pages/categoryAuctions.tsx';
 import { RegisteredAuctions } from './pages/registeredAuctions.tsx';
 import { AuctionDetails } from './pages/auctionDetails.tsx';
 import { BatchDetails } from './pages/batchDetails.tsx';
+import { MyAuctionDetails } from './pages/myAuctionDetails.tsx';
 
 
 const router = createBrowserRouter([
@@ -36,7 +37,8 @@ const router = createBrowserRouter([
           { path: "registered", element: <RegisteredAuctions /> },
           { path: "categories/:category", element: <CategoryAuctions /> },
           { path: "details/:id", element: <AuctionDetails /> },
-          { path: "batch/details/:id", element: <BatchDetails /> }
+          { path: "batch/details/:id", element: <BatchDetails /> },
+          { path: "myAuction/details/:id", element: <MyAuctionDetails /> }
         ]
       }
     ]
