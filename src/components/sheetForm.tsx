@@ -4,8 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DatePicker } from "./datePicker";
 import { Textarea } from "./ui/textarea";
-import { Image, SaveAll } from "lucide-react";
-import { formatDate } from "@/lib/utils";
+import { Plus, SaveAll } from "lucide-react";
 import { toast } from "sonner";
 import {
     Sheet,
@@ -25,7 +24,7 @@ type Batch = {
   id: string;
   title: string;
   code: number;
-  price: string;
+  price: number;
   openingDate: string;
   openingHour: string;
   specification: string;
@@ -37,7 +36,7 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
     id: "",
     title: "",
     code: 0,
-    price: "",
+    price: 0,
     openingDate: "",
     openingHour: "",
     specification: "",
@@ -55,10 +54,11 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
 
     if (
       !batch.title ||
-      !batch.price ||
+      batch.price === 0 ||
       !batch.openingDate ||
       !batch.openingHour ||
-      !batch.specification
+      !batch.specification ||
+      batch.images.length === 0
     ) {
       toast.error("Oops!", {
         description: "Preencha todos os campos para continuar.",
@@ -72,7 +72,8 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
       title: batch.title,
       code: Math.floor(Math.random() * 1000000),
       price: batch.price,
-      openingDate: formatDate(batch.openingDate + " " + batch.openingHour),
+      openingDate: batch.openingDate,
+      openingHour: batch.openingHour,
       specification: batch.specification,
       images: batch.images
     };
@@ -83,7 +84,7 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
       id: "",
       title: "",
       code: 0,
-      price: "",
+      price: 0,
       openingDate: "",
       openingHour: "",
       specification: "",
@@ -100,7 +101,16 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
+
     const selectedImages = Array.from(e.target.files);
+
+    if (selectedImages.length > 5) {
+      toast.error("Oops!", {
+        description: "Adicione no máximo 5 imagens.",
+      });
+      return;
+    }
+
     setBatch((prevState) => ({ ...prevState, images: selectedImages }));
   };
 
@@ -119,9 +129,9 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
             Crie um novo lote e adicione ao seu leilão.
           </SheetDescription>
         </SheetHeader>
-        <form onSubmit={handleFormSubmit}>
-          <div className="my-6 space-y-6">
-            <div className="space-y-2">
+        <form>
+          <div className="space-y-6">
+            <div className="mt-6 space-y-2">
               <Label htmlFor="title">Título</Label>
               <Input
                 id="title"
@@ -179,25 +189,32 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
 
             <div className="space-y-2">
               <Input id="picture" type="file" ref={fileInputRef} accept="image/*" multiple onChange={handleImageSelect} style={{ display: "none" }}/>
-              <Button
-                type="button"
-                className="text-sm flex items-center gap-2"
-                variant={"outline"}
-                onClick={handleButtonClick}
-              >
-                <Image size={20} />
-                Selecione as imagens
-              </Button>
+              <div className="rounded-xl border border-dashed bg-card text-card-foreground shadow cursor-pointer" onClick={handleButtonClick}>
+                <div className="p-2 flex items-center flex-col space-y-2">
+                  <Plus size={26} className="text-muted-foreground"/>
+                  <p className="text-sm text-muted-foreground">Adicione até 5 imagens</p>
+                </div>
+              </div>
+
+              {batch.images.length > 0 && (
+                <div className="rounded-xl border border-dashed bg-card text-card-foreground shadow p-2 grid place-content-center">
+                  <ul>
+                    {batch.images.map((image, index) => (
+                      <li className="text-sm text-muted-foreground" key={index}>{image.name}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
 
           <Button
-            type="submit"
-            className="text-sm flex items-center gap-2"
-            variant={"ghost"}
+            onClick={handleFormSubmit}
+            type="button"
+            className="mt-6 ext-sm flex items-center gap-2 p-5"
           >
             <SaveAll size={20} />
-            Salvar
+            Adicionar lote
           </Button>
         </form>
       </SheetContent>

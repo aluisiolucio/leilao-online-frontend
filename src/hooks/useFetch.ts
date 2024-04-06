@@ -9,6 +9,7 @@ type QueryParams = {
     dataInicial?: string;
     dataFinal?: string;
     limite?: number;
+    myAuctions?: boolean;
 }
 
 export function useFetch<T>(url: string, params?: QueryParams) {

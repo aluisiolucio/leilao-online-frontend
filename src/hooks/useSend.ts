@@ -5,7 +5,7 @@ type ErrorType = {
     message: string;
 }
 
-export function useSend<T>(url: string) {
+export function useSend<T>(url: string, isToken: boolean = false) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<ErrorType | null>(null);
     const [responseData, setResponseData] = useState<T | null>(null);
@@ -14,9 +14,18 @@ export function useSend<T>(url: string) {
       setIsLoading(true);
       setError(null);
       setResponseData(null);
+
+      let options
+      if (isToken) {
+        options = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+          }
+        }
+      }
   
       try {
-        const response = await axios.post<T>(url, requestData);
+        const response = await axios.post<T>(url, requestData, options);
         setResponseData(response.data);
       } catch (error) {
         const axiosError = error as AxiosError<ErrorType>;

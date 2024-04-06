@@ -1,30 +1,41 @@
 import { Header } from "@/components/header";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { useFetch } from "@/hooks/useFetch";
 import { formatDate, formatPrice } from "@/lib/utils";
-import { Phone } from "lucide-react";
+import { Phone, Trash2 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
+
+type Batch = {
+    id: string;
+    title: string;
+    code: number;
+    price: number;
+    status: string;
+    startDateTime: string;
+    imagesPath: string[];
+}
 
 type Auction = {
     id: number;
     title: string;
     description: string;
     ownerId: string;
-    idOwner: string;
+    isOwner: string;
     imagePath: string;
     contact: {
         name: string;
         phone: string;
     }
-    batchs: []
+    batchs: Batch[]
 }
 
 export function AuctionDetails() {
     const { id } = useParams()
-    let price = 0;
-    let initialDate = new Date();
+    // let price = 0;
+    // let initialDate = new Date();
     const { data: auction, error } = useFetch<Auction>('auction/' + id);
 
     if (error) {
@@ -47,19 +58,8 @@ export function AuctionDetails() {
                     <div>
                         <img
                             className="w-full h-96 object-cover rounded-lg" 
-                            src={'../../src' + auction?.imagePath} alt="Imagem carro" />
+                            src={auction?.imagePath} alt="Imagem principal do leilão" />
                     </div>
-
-                    {/* <div className="flex items-end justify-between">
-                        <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">Lance mínimo</p>
-                            <h2 className="text-2xl font-bold">R$ 45.231,89</h2>
-                        </div>
-                        <Button className="flex items-center gap-1">
-                            <TicketPlus size={20} />
-                            Participar
-                        </Button>
-                    </div> */}
                 </div>
 
                 <div className="col-span-2 flex flex-col items-start justify-between rounded-xl border bg-card text-card-foreground shadow p-8">
@@ -81,29 +81,35 @@ export function AuctionDetails() {
                     <h2 className="text-xl font-medium">{auction?.batchs.length} Lote(s)</h2>
                 </div>
 
-                {/* <Separator className="col-span-3" /> */}
-
                 <div className="col-span-3 rounded-xl border bg-card text-card-foreground shadow p-5">
                     {
-                        auction?.batchs.map((batch: any, index) => (
-                            console.log(batch),
+                        auction?.batchs.map((batch: Batch, index) => (
                             <div key={batch.id}>
                                 <Link to={"/auction/batch/details/" + batch.id}>
+
+                                    {/* TODO: Refatorar */}
                                     <div className="flex items-center gap-5">
                                         <img
                                             className="w-16 h-16 object-cover rounded-lg" 
-                                            src="https://images.unsplash.com/photo-1458408990864-27997f8c2984?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Imagem carro" />
+                                            src={batch.imagesPath[0]} alt="Imagem do lote" />
                                         
                                         <div className="flex items-center justify-between w-full">                            
                                             <h2 className="text-xl font-medium">{batch.title}</h2>                    
-                                            <h2 className="text-md font-medium">Número: {batch.number}</h2>                   
-                                            <p className="text-md font-medium">{batch.id}</p>
-                                            <p className="text-md font-medium">Início em: {formatDate(batch.initialDate)}</p>
+                                            <h2 className="text-md font-medium">Número: {batch.code}</h2>
+                                            <p className="text-md font-medium">Início em: {formatDate(batch.startDateTime)}</p>
                                             <p className="text-md font-medium">{batch.status}</p>
                                             <div>
                                                 <p className="text-sm text-muted-foreground">Lance inicial</p>
                                                 <h2 className="text-xl font-medium">{formatPrice(batch.price)}</h2>
                                             </div>
+
+                                            <Button
+                                                type="button"
+                                                className="text-md flex items-center gap-2 p-5"
+                                                variant={"link"}
+                                            >
+                                                <Trash2 size={26} />
+                                            </Button>
                                         </div>
                                     </div>
                                 </Link>
