@@ -35,6 +35,7 @@ const router = createBrowserRouter([
           { path: "create", element: <CreateAuction /> },
           { path: "mine", element: <MyAuctions /> },
           { path: "registered", element: <RegisteredAuctions /> },
+          { path: "registered/batch/:id", element: <BatchDetails /> },
           { path: "categories/:category", element: <CategoryAuctions /> },
           { path: "details/:id", element: <AuctionDetails /> },
           { path: "batch/details/:id", element: <BatchDetails /> },
