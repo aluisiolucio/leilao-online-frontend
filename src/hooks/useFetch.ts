@@ -10,6 +10,7 @@ type QueryParams = {
     dataFinal?: string;
     limite?: number;
     myAuctions?: boolean;
+    category?: string;
 }
 
 export function useFetch<T>(url: string, params?: QueryParams) {
@@ -25,7 +26,11 @@ export function useFetch<T>(url: string, params?: QueryParams) {
             params: params || {}
         })
             .then(response => {
-                setData(response.data);
+                if (response.status !== 200) {
+                    setError(response.data.message);
+                } else {
+                    setData(response.data);
+                }
             })
             .catch(error => {
                 setError(error as string);

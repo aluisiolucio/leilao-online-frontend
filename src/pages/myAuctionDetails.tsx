@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import { formatISO } from "date-fns";
 import { useFetch } from "@/hooks/useFetch";
+import { SelectCategories } from "@/components/selectCategories";
 
 type AuctionDataForm = {
   title: string;
@@ -69,6 +70,7 @@ type Auction = {
   ownerId: string;
   isOwner: string;
   imagePath: string;
+  category: string;
   contact: {
     name: string;
     phone: string;
@@ -188,6 +190,10 @@ export function MyAuctionDetails() {
     setIsEditing(false);
   };
 
+  const handleCategorySelected = (value: string) => {
+    console.log(value);
+  };
+
 //   useEffect(() => {
 //     if (error) {
 //         toast.error("Oops!", {
@@ -232,10 +238,21 @@ export function MyAuctionDetails() {
         </div>
 
         <div className="col-span-2 space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="title">Título</Label>
-            <Input id="title" type="text" placeholder="Informe o título do leilão" value={auction?.title} onChange={handleInputChange} disabled={!isEditing} />
-            <p className="text-[0.8rem] text-muted-foreground">Esse é o nome que aparecerá publicamente para todos</p>
+          <div className="flex items-end justify-between gap-3">
+            <div className="space-y-2 w-full">
+              <Label htmlFor="title">Título</Label>
+              <Input
+                id="title"
+                type="text"
+                className="w-full"
+                placeholder="Informe o título do leilão"
+                value={auction?.title}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+              />
+            </div>
+
+            <SelectCategories getValueSelected={handleCategorySelected} valueSelected={auction?.category} isEditing={isEditing} />
           </div>
 
           <div className="flex items-center gap-3">
@@ -291,12 +308,16 @@ export function MyAuctionDetails() {
             <p className="text-sm text-muted-foreground">Para criar um leilão ele deve possuir ao menos um lote.</p>
           </div>
 
-          <div className="flex items-center">
-            <Button type="button" onClick={openSheet} className="text-md flex items-center gap-2 p-5" variant={"ghost"}>
-              <Plus size={20} />
-              Novo lote
-            </Button>
-          </div>
+          {
+            isEditing && (
+              <div className="flex items-center">
+                <Button type="button" onClick={openSheet} className="text-md flex items-center gap-2 p-5" variant={"ghost"}>
+                  <Plus size={20} />
+                  Novo lote
+                </Button>
+              </div>
+            )
+          }
         </div>
 
         <div className="space-y-6 col-span-3">

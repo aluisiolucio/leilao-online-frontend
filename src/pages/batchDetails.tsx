@@ -47,6 +47,12 @@ export function BatchDetails() {
         })
     }
 
+    if (errorPost) {
+        toast.error('Oops!', {
+            description: errorPost
+        })
+    }
+
     const handleInscription = async () => {
         const inscription: Inscription = {
             batchId: batch?.id || '',

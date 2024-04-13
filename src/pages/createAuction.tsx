@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { formatISO } from "date-fns";
+import { SelectCategories } from "@/components/selectCategories";
 
 type AuctionDataForm = {
   title: string;
@@ -20,12 +21,13 @@ type AuctionDataForm = {
   image: File;
   contactName: string;
   contactPhone: string;
+  category: string;
 };
 
 type BatchDataForm = {
   title: string;
   code: number;
-  price: number;
+  price: string;
   openingDate: string;
   openingHour: string;
   specification: string;
@@ -45,6 +47,7 @@ type AuctionData = {
   title: string;
   description: string;
   imagePath: string;
+  category: string;
   contact: {
     name: string;
     phone: string;
@@ -64,6 +67,7 @@ export function CreateAuction() {
     image: new File([], ""),
     contactName: "",
     contactPhone: "",
+    category: ""
   });
   const [batchs, setBatchs] = useState<BatchDataForm[]>([]);
   const { error, responseData, sendRequest } = useSend<Response>(
@@ -109,6 +113,10 @@ export function CreateAuction() {
     }
   };
 
+  const handleCategorySelected = (value: string) => {
+    setAuction(prevState => ({ ...prevState, category: value }));
+  };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -130,6 +138,7 @@ export function CreateAuction() {
       title: auction.title,
       description: auction.description,
       imagePath: URL.createObjectURL(auction.image),
+      category: auction.category,
       contact: {
         name: auction.contactName,
         phone: auction.contactPhone,
@@ -145,6 +154,17 @@ export function CreateAuction() {
     };
 
     await sendRequest(newAuction);
+
+    setAuction({
+      title: "",
+      description: "",
+      image: new File([], ""),
+      contactName: "",
+      contactPhone: "",
+      category: ""
+    });
+
+    setBatchs([]);
   };
 
   useEffect(() => {
@@ -191,10 +211,13 @@ export function CreateAuction() {
         }
 
         <div className="col-span-2 space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="title">Título</Label>
-            <Input id="title" type="text" placeholder="Informe o título do leilão" value={auction.title} onChange={handleInputChange} />
-            <p className="text-[0.8rem] text-muted-foreground">Esse é o nome que aparecerá publicamente para todos</p>
+          <div className="flex items-end justify-between gap-3">
+            <div className="space-y-2 w-full">
+              <Label htmlFor="title">Título</Label>
+              <Input id="title" type="text" className="w-full" placeholder="Informe o título do leilão" value={auction.title} onChange={handleInputChange} />
+            </div>
+
+            <SelectCategories getValueSelected={handleCategorySelected} isEditing={true} />
           </div>
 
           <div className="flex items-center gap-3">
@@ -251,7 +274,7 @@ export function CreateAuction() {
                         <p className="text-md font-medium">Aberto</p>
                         <div>
                           <p className="text-sm text-muted-foreground">Lance inicial</p>
-                          <h2 className="text-xl font-medium">{formatPrice(batch.price)}</h2>
+                          <h2 className="text-xl font-medium">{formatPrice(Number(batch.price))}</h2>
                         </div>
 
                         <div>

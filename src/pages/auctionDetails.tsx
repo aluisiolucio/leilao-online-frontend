@@ -1,10 +1,9 @@
 import { Header } from "@/components/header";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { useFetch } from "@/hooks/useFetch";
 import { formatDate, formatPrice } from "@/lib/utils";
-import { Phone, Trash2 } from "lucide-react";
+import { Phone } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
 

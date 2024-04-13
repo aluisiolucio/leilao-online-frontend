@@ -17,7 +17,10 @@ type Auction = {
 }
 
 export function HighlightsAuctions() {
-    const { data: auctions, error } = useFetch<Auction[]>('auction', { dataInicial: new Date().toISOString(), dataFinal: new Date().toISOString() });
+    const { data: auctions, error } = useFetch<Auction[]>('auction', {
+        dataInicial: new Date().toISOString().split('T')[0],
+        dataFinal: new Date().toISOString().split('T')[0]
+    });
 
     if (error) {
         toast.error('Oops!', {

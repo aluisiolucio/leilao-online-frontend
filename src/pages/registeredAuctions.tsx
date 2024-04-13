@@ -87,7 +87,7 @@ export function RegisteredAuctions() {
                                 filteredBatchs?.map((batch) => (
                                     <TableRow
                                         key={batch.id}
-                                        onClick={() => navigate("batch/" + batch.id)}
+                                        onClick={() => navigate("/auction/batch/details/" + batch.id)}
                                         className="cursor-pointer"
                                     >
                                         <TableCell>{batch.code}</TableCell>
