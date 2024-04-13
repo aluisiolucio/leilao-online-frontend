@@ -24,12 +24,12 @@ export function SelectCategories({ getValueSelected, valueSelected = '', isEditi
             <SelectGroup>
                 <SelectLabel>Categorias</SelectLabel>
                 <Separator className="my-1"/>
-                <SelectItem value={categoryEnum.car}>Carros</SelectItem>
-                <SelectItem value={categoryEnum.house}>Imóveis</SelectItem>
+                <SelectItem value={categoryEnum.automobiles}>Automóveis</SelectItem>
+                <SelectItem value={categoryEnum.properties}>Imóveis</SelectItem>
                 <SelectItem value={categoryEnum.electronics}>Eletrônicos</SelectItem>
                 <SelectItem value={categoryEnum.furniture}>Móveis</SelectItem>
                 <SelectItem value={categoryEnum.clothes}>Roupas</SelectItem>
-                <SelectItem value={categoryEnum.art}>Artes</SelectItem>
+                <SelectItem value={categoryEnum.art}>Arte</SelectItem>
                 <SelectItem value={categoryEnum.jewelry}>Jóias</SelectItem>
                 <SelectItem value={categoryEnum.collectibles}>Colecionáveis</SelectItem>
                 <SelectItem value={categoryEnum.books}>Livros</SelectItem>

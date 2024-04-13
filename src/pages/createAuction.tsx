@@ -14,6 +14,8 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { formatISO } from "date-fns";
 import { SelectCategories } from "@/components/selectCategories";
+import { uploadImagesAwsS3 } from "@/lib/aws";
+import { Spinner } from "@/components/spinner";
 
 type AuctionDataForm = {
   title: string;
@@ -78,6 +80,8 @@ export function CreateAuction() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+
   const openSheet = () => {
     setIsSheetOpen(true);
   };
@@ -134,25 +138,46 @@ export function CreateAuction() {
       return;
     }
 
-    const newAuction: AuctionData = {
-      title: auction.title,
-      description: auction.description,
-      imagePath: URL.createObjectURL(auction.image),
-      category: auction.category,
-      contact: {
-        name: auction.contactName,
-        phone: auction.contactPhone,
-      },
-      batchs: batchs.map((batch) => ({
-        title: batch.title,
-        price: parseFloat(batch.price),
-        code: batch.code,
-        startDateTime: formatISO(batch.openingDate + ' ' + batch.openingHour),
-        specification: batch.specification,
-        imagesPath: batch.images.map((image) => URL.createObjectURL(image)),
-      })),
-    };
+    setIsUploading(true)
+    const urlFile = await uploadImagesAwsS3(auction.image);
 
+    let batchsList: BatchData[] = [];
+    let batchsImages: string[][] = []; // Alteração: array de arrays
+    
+    // Iterar sobre os lotes de forma assíncrona
+    await Promise.all(batchs.map(async batch => {
+        let imagesUrls: string[] = []; // Alteração: novo array para cada lote
+        // Iterar sobre as imagens de cada lote de forma assíncrona
+        await Promise.all(batch.images.map(async image => {
+            const url = await uploadImagesAwsS3(image);
+            imagesUrls.push(url || '');
+        }));
+        batchsImages.push(imagesUrls); // Adiciona o array de URLs para o lote atual
+    
+        const newBatch: BatchData = {
+            title: batch.title,
+            price: parseFloat(batch.price),
+            code: batch.code,
+            startDateTime: formatISO(batch.openingDate + ' ' + batch.openingHour),
+            specification: batch.specification,
+            imagesPath: imagesUrls // Alteração: passa o array de URLs
+        };
+    
+        batchsList.push(newBatch);
+    }));
+    
+    const newAuction: AuctionData = {
+        title: auction.title,
+        description: auction.description,
+        imagePath: urlFile || "",
+        category: auction.category,
+        contact: {
+            name: auction.contactName,
+            phone: auction.contactPhone,
+        },
+        batchs: batchsList
+    };
+    
     await sendRequest(newAuction);
 
     setAuction({
@@ -165,6 +190,7 @@ export function CreateAuction() {
     });
 
     setBatchs([]);
+    setIsUploading(false)
   };
 
   useEffect(() => {
@@ -190,16 +216,19 @@ export function CreateAuction() {
       <form className="grid grid-cols-3 gap-8" onSubmit={handleFormSubmit}>
         {
           auction.image.size !== 0 ? (
-            <div className="rounded-xl border bg-card text-card-foreground shadow space-y-8 p-4">
-              <div className="h-80">
-                  <img
-                    className="w-full h-full object-cover rounded-lg" 
-                    src={URL.createObjectURL(auction.image)} alt="Imagem carro" />
+            <div>
+              <Input id="picture" type="file" ref={fileInputRef} accept="image/*" multiple onChange={handleImageSelect} style={{ display: "none" }}/>
+              <div className="rounded-xl border bg-card text-card-foreground shadow space-y-8 p-4 cursor-pointer" onClick={handleButtonClick}>
+                <div className="h-80">
+                    <img
+                      className="w-full h-full object-cover rounded-lg" 
+                      src={URL.createObjectURL(auction.image)} alt="Imagem carro" />
+                </div>
               </div>
             </div>
           ) : (
             <div>
-              <Input id="picture" type="file" ref={fileInputRef} accept="image/*" multiple onChange={handleImageSelect} style={{ display: "none" }}/>
+              <Input id="contextPicture" type="file" ref={fileInputRef} accept="image/*" multiple onChange={handleImageSelect} style={{ display: "none" }}/>
               <div className="h-full rounded-xl border border-dashed bg-card text-card-foreground shadow cursor-pointer" onClick={handleButtonClick}>
                 <div className="flex flex-col items-center justify-center gap-3 h-full">
                   <Plus size={52} className="text-muted-foreground" />
@@ -305,9 +334,11 @@ export function CreateAuction() {
 
             {batchs.length > 0 && (
               <div className="flex items-center justify-end">
-                <Button type="submit" className="text-md flex items-center gap-2 p-5">
-                  <Save size={20} />
-                  Salvar leilão
+                <Button type="submit" className="text-md flex items-center gap-2 p-5" disabled={isUploading}>
+                  { isUploading ? '' : <Save size={20} /> }
+                  {
+                    isUploading ? <Spinner /> : 'Salvar leilão'
+                  }
                 </Button>
               </div>
             )}

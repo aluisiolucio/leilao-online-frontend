@@ -18,8 +18,7 @@ type Auction = {
 
 export function HighlightsAuctions() {
     const { data: auctions, error } = useFetch<Auction[]>('auction', {
-        dataInicial: new Date().toISOString().split('T')[0],
-        dataFinal: new Date().toISOString().split('T')[0]
+        myAuctions: false
     });
 
     if (error) {
@@ -43,7 +42,7 @@ export function HighlightsAuctions() {
                     <Separator className="my-5" />
 
                     <section>
-                        <div className="flex space-x-4 justify-around">
+                        <div className="flex items-start justify-between gap-4">
                             {
                                 auctions?.length || 0 > 0 ? auctions?.slice(0, 5).map((auction: Auction) => (
                                     <Link to={"/auction/details/" + auction.id}>
@@ -72,7 +71,7 @@ export function HighlightsAuctions() {
                     <Separator className="my-5" />
 
                     <section>
-                        <div className="flex space-x-4 justify-around">
+                        <div className="flex items-start justify-between gap-4">
                             {
                                 auctions?.length || 0 > 0 ? auctions?.reverse().slice(0, 8).map((auction: Auction) => (
                                     <Link to={"/auction/details/" + auction.id}>
@@ -80,7 +79,6 @@ export function HighlightsAuctions() {
                                             key={auction.id}
                                             title={auction.title}
                                             description={""}
-                                            width="w-[150px]"
                                             aspect="aspect-square"
                                             image={auction.imagePath}
                                         />

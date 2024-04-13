@@ -50,7 +50,7 @@ export function Login() {
   useEffect(() => {
     if (error) {
       toast.error('Oops!', {
-        description: error.message
+        description: error
       });
     } else if (responseData) {
       localStorage.setItem('accessToken', responseData.accessToken);

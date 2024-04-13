@@ -8,7 +8,7 @@ import { toast } from "sonner";
 type Auction = {
   id: number;
   title: string;
-  batchCount: number;
+  batchs: [];
 }
 
 export function MyAuctions() {
@@ -41,7 +41,7 @@ export function MyAuctions() {
                       <div className="flex items-center rounded-xl border bg-card text-card-foreground shadow p-5 transition-all hover:scale-105">
                         <div className="space-y-1">
                           <p className="text-sm font-medium leading-none">{auction.title}</p>
-                          <p className="text-sm text-muted-foreground">Qtd. lotes: {auction.batchCount}</p>
+                          <p className="text-sm text-muted-foreground">Qtd. lotes: {auction.batchs.length}</p>
                         </div>
                       </div>
                     </Link>

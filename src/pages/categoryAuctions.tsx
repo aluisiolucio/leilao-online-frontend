@@ -71,7 +71,7 @@ export function CategoryAuctions() {
 
     const { category } = useParams()
 
-    const { data: auctions, error } = useFetch<Auction[]>('auction', { category: category });
+    const { data: auctions, error } = useFetch<Auction[]>('auction', { category: category, myAuctions: false });
 
     if (error) {
         toast.error('Oops!', {
@@ -105,7 +105,7 @@ export function CategoryAuctions() {
                                 <div className="overflow-hidden rounded-t-md">
                                     <img
                                         className="h-auto w-full object-cover aspect-[4/4]"
-                                        src="" alt="Imagem card" />
+                                        src={auction.imagePath} alt="Imagem card" />
                                 </div>
     
                                 <div className="p-4 space-y-4">
