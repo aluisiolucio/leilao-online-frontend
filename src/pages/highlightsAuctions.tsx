@@ -54,7 +54,7 @@ export function HighlightsAuctions() {
                                         />
                                     </Link>
                                 )) : (
-                                    <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                                    <div className="w-full flex flex-col items-center space-y-2 text-muted-foreground p-3">
                                         <Layers size={52}/>
                                         <p>Os leilões quando disponíveis, apareceram aqui.</p>
                                     </div>
@@ -84,7 +84,7 @@ export function HighlightsAuctions() {
                                         />
                                     </Link>
                                 )) : (
-                                    <div className="flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                                    <div className="w-full flex flex-col items-center space-y-2 text-muted-foreground p-3">
                                         <Layers size={52}/>
                                         <p>Os leilões quando disponíveis, apareceram aqui.</p>
                                     </div>

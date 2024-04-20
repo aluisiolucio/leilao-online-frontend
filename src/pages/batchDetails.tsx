@@ -3,11 +3,11 @@ import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { useFetch } from "@/hooks/useFetch";
+import { usePatch } from "@/hooks/usePatch";
 import { useSend } from "@/hooks/useSend";
-import { formatPrice } from "@/lib/utils";
-import { set } from "date-fns";
+import { formatIsoDate, formatPrice } from "@/lib/utils";
 import { TicketPlus, Waypoints } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -20,6 +20,7 @@ type Batch = {
     price: number;
     status: string;
     isEnrolled: boolean;
+    isConfirmation: boolean;
     startDateTime: string;
     images: string[];
 }
@@ -27,6 +28,10 @@ type Batch = {
 type Inscription = {
     batchId: string;
     auctionId: string;
+}
+
+type ConfirmInscription = {
+    batchId: string;
 }
 
 type Response = {
@@ -39,7 +44,12 @@ export function BatchDetails() {
     const { error: errorPost, responseData, sendRequest } = useSend<Response>(
         "http://localhost:3333/api/batch/enroll",
         true
-      );
+    );
+
+    const { error: errorPatch, responseData: dataPatch, updateRequest } = usePatch<ConfirmInscription>(
+        "http://localhost:3333/api/batch/confirm",
+        true
+    );
 
     if (error) {
         toast.error('Oops!', {
@@ -53,6 +63,12 @@ export function BatchDetails() {
         })
     }
 
+    if (errorPatch) {
+        toast.error('Oops!', {
+            description: errorPatch
+        })
+    }
+
     const handleInscription = async () => {
         const inscription: Inscription = {
             batchId: batch?.id || '',
@@ -60,6 +76,14 @@ export function BatchDetails() {
         }
 
         await sendRequest(inscription)
+    }
+
+    const handleConfirmInscription = async () => {
+        const confirmInscription: ConfirmInscription = {
+            batchId: batch?.id || ''
+        }
+
+        await updateRequest(confirmInscription)
     }
 
     useEffect(() => {
@@ -76,7 +100,23 @@ export function BatchDetails() {
                 window.location.reload();
             }, 2000);
         }
-      }, [errorPost, responseData]);
+    }, [errorPost, responseData]);
+
+    useEffect(() => {
+        if (errorPatch) {
+            toast.error("Oops!", {
+                description: "Ocorreu um erro ao confirmar inscrição.",
+            });
+        } else if (dataPatch) {
+            toast.success("Sucesso!", {
+                description: "Inscrição confirmada com sucesso.",
+            });
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        }
+    }, [errorPatch, dataPatch]);
 
     return (
         <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
@@ -89,24 +129,67 @@ export function BatchDetails() {
             <Toaster position="top-right" richColors />
 
             <div className="grid grid-cols-4">
-                <div className="col-span-4 flex items-center justify-between">
+                <div className="col-span-4 flex items-start justify-between">
                     <div className="flex flex-col mr-20">
                         <Carousel images={batch?.images || []} />
 
-                        <Button
-                            type="button"
-                            onClick={handleInscription}
-                            className="flex items-center gap-3 text-lg py-6 col-span-2 mt-6"
-                            variant={"secondary"}
-                            disabled={batch?.isEnrolled}
-                        >
-                            <TicketPlus size={24} />
+                        <div className="flex items-center justify-between gap-2">
+                            <Button
+                                type="button"
+                                onClick={handleInscription}
+                                className="w-full flex items-center gap-3 text-lg py-6 col-span-2 mt-6"
+                                variant={"secondary"}
+                                disabled={batch?.isEnrolled || batch?.status === 'Fechado'}
+                            >
+                                {
+                                    batch?.status !== 'Fechado' ? (
+                                        batch?.isEnrolled ? (
+                                            <>
+                                                <TicketPlus size={24} />
+                                                Inscrito
+                                            </>
+                                        ) : (
+                                            <>
+                                                <TicketPlus size={24} />
+                                                Inscrever-se
+                                            </>
+                                        )
+                                    ) : (
+                                        'Leilão fechado'
+                                    )
+                                }
+                            </Button>
+
                             {
-                                batch?.isEnrolled ? 'Inscrito' : 'Participar'
+                                batch?.status == 'Aguardando participantes' && (
+                                    <Button
+                                        type="button"
+                                        onClick={handleConfirmInscription}
+                                        className="flex items-center gap-3 text-lg py-6 col-span-2 mt-6 cursor-pointer"
+                                        variant={"link"}
+                                        disabled={batch?.isConfirmation}
+                                    >
+                                        {
+                                            batch?.isConfirmation ? 'Confirmado' : 'Confirmar participação'
+                                        }
+                                    </Button>
+                                ) || batch?.status == 'Em andamento' && (
+                                    <Button
+                                        type="button"
+                                        onClick={handleConfirmInscription}
+                                        className="flex items-center gap-3 text-lg py-6 col-span-2 mt-6 cursor-pointer"
+                                        variant={"link"}
+                                        disabled={batch?.isConfirmation}
+                                    >
+                                        {
+                                            batch?.isConfirmation ? 'Confirmado' : 'Confirmar participação'
+                                        }
+                                    </Button>
+                                )
                             }
-                        </Button>
+                        </div>
                     </div>
-                    <div className="h-full w-full flex flex-col items-start justify-between rounded-xl border bg-card text-card-foreground shadow p-7">
+                    <div className="h-full w-full flex flex-col items-start justify-between gap-4 rounded-xl border bg-card text-card-foreground shadow p-7">
                         <div className="flex items-center justify-between w-full">
                             <h1 className="text-2xl font-semibold">{batch?.title}</h1>
                             <p className="text-muted-foreground">Código: {batch?.code}</p>
@@ -123,7 +206,7 @@ export function BatchDetails() {
 
                                 <div>
                                     <p>{batch?.status}</p>
-                                    <p>Começa em: {batch?.startDateTime}</p>
+                                    <p>Começa em: {formatIsoDate(batch?.startDateTime || '')}</p>
                                 </div>
                             </div>
 
