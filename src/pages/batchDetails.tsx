@@ -1,15 +1,19 @@
+import { Batchs } from "@/components/batchs";
+import { CardSendBatch } from "@/components/cardSendBatch";
 import { Carousel } from "@/components/carousel";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { useFetch } from "@/hooks/useFetch";
 import { usePatch } from "@/hooks/usePatch";
 import { useSend } from "@/hooks/useSend";
 import { formatIsoDate, formatPrice } from "@/lib/utils";
-import { TicketPlus, Waypoints } from "lucide-react";
-import { useEffect } from "react";
+import { Layers, TicketPlus, Waypoints } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { jwtDecode } from 'jwt-decode';
 
 type Batch = {
     id: string;
@@ -35,6 +39,27 @@ type ConfirmInscription = {
 }
 
 type Response = {
+    id: string;
+}
+
+type Lance = {
+    value: string;
+    userName: string;
+    isMy: boolean;
+    code: string;
+    time: string;
+}
+
+type CallbackParams = {
+    value: string;
+    userName: string;
+    userId: string;
+    code: string;
+    type: string;
+    message: string;
+}
+
+type JwtDecoded = {
     id: string;
 }
 
@@ -118,8 +143,40 @@ export function BatchDetails() {
         }
     }, [errorPatch, dataPatch]);
 
+    const [lances, setLances] = useState<Lance[]>([]);
+
+    const callback = (params: CallbackParams) => {
+        if (params.type === 'error') {
+            toast.error('Oops!', {
+                description: params.message
+            })
+
+            return;
+        } else if (params.type === 'info') {
+            toast.info('Info!', {
+                description: params.message
+            })
+        } else {
+            const token = localStorage.getItem('accessToken');
+            const decoded = jwtDecode<JwtDecoded>(token || '');
+            const userId = decoded.id;
+
+            const newLance: Lance = {
+                value: params.value,
+                userName: params.userName,
+                isMy: params.userId === userId,
+                code: params.code,
+                time: new Date().toLocaleTimeString()
+            }
+
+            setLances([...lances, newLance]);
+
+            lances.push(newLance);
+        }
+    }
+
     return (
-        <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
+        <div className={`${batch?.status !== 'Em andamento' ? "h-screen" : ""} text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
             <Header
                 title="Detalhes do lote"
                 subtitle="Confira os detalhes do lote e participe do leilão."
@@ -218,20 +275,25 @@ export function BatchDetails() {
                     </div>
                 </div>
 
-                {/* <Separator className="col-span-4 my-6" />
+                <Separator className="col-span-4 my-6" />
 
-                <div className="col-span-4 space-y-3">
-                    <div>
-                        <h2 className="text-xl font-medium">Especificações</h2>
-                    </div>
+                <div className="col-span-4 text-xl font-semibold mb-3">Lances em tempo real</div>
+                {/* <Batchs lances={lances} />
+                <CardSendBatch batchId={id || ''} callback={callback} />   */}
 
-                    <div className="rounded-xl border bg-card text-card-foreground shadow p-5">
-                        <div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta qui dolore ipsam numquam possimus doloremque libero atque, reprehenderit sequi perspiciatis voluptas facilis animi vel accusantium ipsa quisquam porro! Vitae, odit.</p>
+                {
+                    batch?.status === 'Em andamento' ? (
+                        <>
+                            <Batchs lances={lances || []} />
+                            <CardSendBatch batchId={id || ''} callback={callback} />  
+                        </>
+                    ) : (
+                        <div className="col-span-4 flex flex-col items-center space-y-2 text-muted-foreground p-3">
+                            <Layers size={52}/>
+                            <p>Lote fechado para receber lances.</p>
                         </div>
-                    </div>
-                </div>
-                */}
+                    )
+                }              
             </div>
         </div>
     )
