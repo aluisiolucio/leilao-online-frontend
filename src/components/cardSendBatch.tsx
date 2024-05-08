@@ -35,7 +35,7 @@ export function CardSendBatch({ batchId, callback }: Lance) {
             return;
         }
 
-        const socket = new WebSocket(`ws://localhost:3333/api/batch/${batchId}/bids`);
+        const socket = new WebSocket(`ws://3.239.191.235:3000/api/batch/${batchId}/bids`);
         socketRef.current = socket;
 
         socket.onopen = () => {

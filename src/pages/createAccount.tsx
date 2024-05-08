@@ -30,7 +30,7 @@ type InputEmpty = {
 }
 
 export function CreateAccount() {
-  const { error, responseData, sendRequest } = useSend<ApiResponse>('http://localhost:3333/api/auth/signup');
+  const { error, responseData, sendRequest } = useSend<ApiResponse>('http://3.239.191.235:3000/api/auth/signup');
   const [formData, setFormData] = useState<FormData>({ name: '', email: '', password: '', confirmPassword: '' });
   const [inputIsEmpty, setinputIsEmpty] = useState<InputEmpty>({ name: false, email: false, password: false, confirmPassword: false });
 

@@ -73,7 +73,7 @@ export function CreateAuction() {
   });
   const [batchs, setBatchs] = useState<BatchDataForm[]>([]);
   const { error, responseData, sendRequest } = useSend<Response>(
-    "http://localhost:3333/api/auction",
+    "http://3.239.191.235:3000/api/auction",
     true
   );
 

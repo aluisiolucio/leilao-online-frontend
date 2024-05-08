@@ -67,12 +67,12 @@ export function BatchDetails() {
     const { id } = useParams()
     let { data: batch, error } = useFetch<Batch>('batch/' + id);
     const { error: errorPost, responseData, sendRequest } = useSend<Response>(
-        "http://localhost:3333/api/batch/enroll",
+        "http://3.239.191.235:3000/api/batch/enroll",
         true
     );
 
     const { error: errorPatch, responseData: dataPatch, updateRequest } = usePatch<ConfirmInscription>(
-        "http://localhost:3333/api/batch/confirm",
+        "http://3.239.191.235:3000/api/batch/confirm",
         true
     );
 
