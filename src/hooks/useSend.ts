@@ -26,7 +26,7 @@ export function useSend<T>(url: string, isToken: boolean = false) {
         setResponseData(response.data);
       } catch (error) {
         const axiosError = error as AxiosError;
-        setError(axiosError.response?.data.message);
+        setError((axiosError.response?.data as { message: string })?.message);
       } finally {
         setIsLoading(false);
       }

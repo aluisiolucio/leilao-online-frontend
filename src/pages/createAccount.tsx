@@ -59,7 +59,7 @@ export function CreateAccount() {
   useEffect(() => {
     if (error) {
       toast.error('Oops!', {
-        description: error.message
+        description: error
       });
     } else if (responseData) {
       toast.success('Conta criada com sucesso!', {

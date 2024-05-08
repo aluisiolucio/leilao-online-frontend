@@ -8,10 +8,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { Plus, Save, SquarePen, Trash2 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
-import { formatISO } from "date-fns";
 import { useFetch } from "@/hooks/useFetch";
 import { SelectCategories } from "@/components/selectCategories";
 
@@ -33,25 +32,25 @@ type BatchDataForm = {
   images: File[];
 };
 
-type BatchData = {
-  title: string;
-  code: number;
-  price: number;
-  status: string;
-  startDateTime: string;
-  imagesPath: string[];
-};
+// type BatchData = {
+//   title: string;
+//   code: number;
+//   price: number;
+//   status: string;
+//   startDateTime: string;
+//   imagesPath: string[];
+// };
 
-type AuctionData = {
-  title: string;
-  description: string;
-  imagePath: string;
-  contact: {
-    name: string;
-    phone: string;
-  };
-  batchs: BatchData[];
-};
+// type AuctionData = {
+//   title: string;
+//   description: string;
+//   imagePath: string;
+//   contact: {
+//     name: string;
+//     phone: string;
+//   };
+//   batchs: BatchData[];
+// };
 
 type Batch = {
   id: string;
@@ -77,10 +76,6 @@ type Auction = {
   }
   batchs: Batch[]
 }
-
-type Response = {
-  id: string;
-};
 
 export function MyAuctionDetails() {
   const { id } = useParams()
@@ -166,24 +161,24 @@ export function MyAuctionDetails() {
         return;
     }
 
-    const newAuction: AuctionData = {
-        title: auctionForm.title,
-        description: auctionForm.description,
-        imagePath: URL.createObjectURL(auctionForm.image),
-        contact: {
-            name: auctionForm.contactName,
-            phone: auctionForm.contactPhone,
-        },
-        batchs: batchsForm.map((batch) => ({
-            title: batch.title,
-            price: parseFloat(batch.price),
-            code: batch.code,
-            startDateTime: formatISO(batch.openingDate + ' ' + batch.openingHour),
-            specification: batch.specification,
-            imagesPath: batch.images.map((image) => URL.createObjectURL(image)),
-            status: "",
-        })),
-    };
+    // const newAuction: AuctionData = {
+    //     title: auctionForm.title,
+    //     description: auctionForm.description,
+    //     imagePath: URL.createObjectURL(auctionForm.image),
+    //     contact: {
+    //         name: auctionForm.contactName,
+    //         phone: auctionForm.contactPhone,
+    //     },
+    //     batchs: batchsForm.map((batch) => ({
+    //         title: batch.title,
+    //         price: parseFloat(batch.price),
+    //         code: batch.code,
+    //         startDateTime: formatISO(batch.openingDate + ' ' + batch.openingHour),
+    //         specification: batch.specification,
+    //         imagesPath: batch.images.map((image) => URL.createObjectURL(image)),
+    //         status: "",
+    //     })),
+    // };
 
         // await sendRequest(newAuction);
 
