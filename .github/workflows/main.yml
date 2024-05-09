@@ -40,11 +40,6 @@ jobs:
       with:
         name: ${{ github.run_number }}-build
 
-    - name: Prepare Deployment
-      run: |
-        sudo mkdir deployment_directory
-        sudo mv * deployment_directory/
-
     - name: Deploy to AWS EC2
       uses: appleboy/ssh-action@master
       with:
@@ -54,7 +49,7 @@ jobs:
         script: |
           sudo mkdir -p /var/www/app
           sudo rm -rf /var/www/app/*
-          sudo cp -R deployment_directory/* /var/www/app
+          sudo cp -R * /var/www/app
 
     - name: Restart server
       uses: appleboy/ssh-action@master
