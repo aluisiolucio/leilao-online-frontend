@@ -12,14 +12,12 @@ import {
 export function Carousel({ images }: { images: string[]}) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
-  // const [count, setCount] = useState(0)
 
   useEffect(() => {
     if (!api) {
       return
     }
 
-    // setCount(images.length)
     setCurrent(api.selectedScrollSnap() + 1)
 
     api.on("select", () => {
@@ -49,7 +47,7 @@ export function Carousel({ images }: { images: string[]}) {
       </UICarousel>
 
       <div className="mt-3 text-center text-md text-muted-foreground">
-        {current} de 5
+        {current} de {images.length}
       </div>
     </div>
   )

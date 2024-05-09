@@ -7,7 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(dateString: string) {
   const date = new Date(dateString);
-  console.log(date);
   // date.setHours(date.getHours() + 3);
   const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' };
   return new Intl.DateTimeFormat('pt-BR', options).format(date);
@@ -20,7 +19,7 @@ export function formatPrice(price: number) {
 
 export function formatIsoDate(datetime: string): string {
   const data = new Date(datetime);
-  data.setHours(data.getHours() + 3);
+  // data.setHours(data.getHours() + 3);
 
   const dia = data.getDate().toString().padStart(2, '0');
   const mes = (data.getMonth() + 1).toString().padStart(2, '0');

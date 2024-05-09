@@ -176,7 +176,7 @@ export function BatchDetails() {
     }
 
     return (
-        <div className={`${batch?.status !== 'Em andamento' ? "h-screen" : ""} text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
+        <div className={`min-h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
             <Header
                 title="Detalhes do lote"
                 subtitle="Confira os detalhes do lote e participe do leilão."

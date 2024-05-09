@@ -28,7 +28,7 @@ export function HighlightsAuctions() {
     }
 
     return (
-        <div className="h-screen text-primary bg-background dark">
+        <div className="min-h-screen text-primary bg-background dark">
             <div className="py-6 max-w-7xl mx-auto">
                 <Toaster position="top-right" richColors />
                 <Header

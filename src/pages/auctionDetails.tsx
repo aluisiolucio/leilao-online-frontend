@@ -42,7 +42,7 @@ export function AuctionDetails() {
     }
 
     return (
-        <div className={`${ auction?.batchs.length || 0 <= 2 ? "h-screen" : "" } text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
+        <div className={`min-h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
             <Toaster position="top-right" richColors />
             <Header
                 title="Detalhes do leilão"

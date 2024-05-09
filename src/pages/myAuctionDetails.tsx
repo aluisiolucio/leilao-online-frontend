@@ -204,7 +204,7 @@ export function MyAuctionDetails() {
   const lengthAuctionBatchs = auction?.batchs.length || 0;
 
   return (
-    <div className={`${lengthAuctionBatchs + batchsForm.length < 2 ? "h-screen" : ""} text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
+    <div className={`min-h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
       <Header
         title="Veja os detalhes do seu leilão"
         subtitle="Confira e edite as informações do seu leilão"

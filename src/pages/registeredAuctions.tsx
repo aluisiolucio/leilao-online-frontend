@@ -49,7 +49,7 @@ export function RegisteredAuctions() {
     );
 
     return (
-        <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
+        <div className="min-h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
             <Header
                 title="Leilões inscritos"
                 subtitle="Confira os leilões em que você está inscrito"

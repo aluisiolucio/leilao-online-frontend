@@ -82,7 +82,7 @@ export function CategoryAuctions() {
     const navigate = useNavigate();
 
     return (
-        <div className="h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
+        <div className="min-h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12">
             <Header
                 title="Leilões por categoria"
                 subtitle="Confira os leilões disponíveis por categoria e participe dos lances."
