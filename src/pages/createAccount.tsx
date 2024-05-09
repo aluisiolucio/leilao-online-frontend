@@ -88,7 +88,7 @@ export function CreateAccount() {
           </a>
         </div>
         <p className="absolute p-8 font-medium invisible lg:visible bottom-0">Explore uma seleção exclusiva dos leilões mais atrativos, onde você pode participar ativamente, dar lances emocionantes e até mesmo criar seus próprios eventos de leilão em tempo real.</p>
-        <img src="../src/assets/images/bg.jpg" alt="Imagem de fundo da tela de login" className="w-full h-full object-cover" />
+        <img src="https://leilao-app-assets.s3.amazonaws.com/bg.jpg" alt="Imagem de fundo da tela de login" className="w-full h-full object-cover" />
       </div>
       <div className="w-full lg:w-1/2 grid place-content-center">
         <form onSubmit={handleCreateAccount}>
