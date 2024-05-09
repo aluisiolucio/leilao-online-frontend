@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      build-artifact-name: ${{ github.run_number }}-build
 
     steps:
     - name: Checkout code
@@ -40,7 +38,10 @@ jobs:
     - name: Download build artifacts
       uses: actions/download-artifact@v2
       with:
-        name: ${{ needs.build.outputs.build-artifact-name }}
+        name: ${{ github.run_number }}-build
+
+    - name: List downloaded files
+      run: ls -la
 
     - name: Deploy to AWS EC2
       uses: appleboy/ssh-action@master
@@ -51,7 +52,7 @@ jobs:
         script: |
           sudo mkdir -p /var/www/app
           sudo rm -rf /var/www/app/*
-          sudo unzip -o ${{ needs.build.outputs.build-artifact-name }}.zip -d /var/www/app
+          sudo unzip -o ${{ github.run_number }}-build.zip -d /var/www/app
     - name: Restart server
       uses: appleboy/ssh-action@master
       with:
