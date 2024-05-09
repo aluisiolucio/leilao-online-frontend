@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      build-artifact-name: build-${{ github.run_number }}
+      build-artifact-name: ${{ github.run_number }}-build
 
     steps:
     - name: Checkout code
@@ -51,7 +51,7 @@ jobs:
         script: |
           mkdir -p /var/www/app
           sudo rm -rf /var/www/app/*
-          unzip -o ${{ needs.build.outputs.build-artifact-name }}.zip -d /var/www/app  # Changed to unzip the zip file
+          unzip -o ${{ needs.build.outputs.build-artifact-name }}.zip -d /var/www/app
     - name: Restart server
       uses: appleboy/ssh-action@master
       with:
