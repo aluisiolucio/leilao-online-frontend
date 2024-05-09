@@ -56,4 +56,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
+            sudo rm -rf /home/ubuntu/myapp/*
             sudo systemctl restart nginx
