@@ -39,9 +39,6 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: ${{ github.run_number }}-build
-    
-    - name: List files
-      run: ls dist/
 
     - name: Deploy to AWS EC2
       uses: appleboy/ssh-action@master
@@ -50,6 +47,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
+          cd /home/runner/work/leilao-app/leilao-app
           sudo mkdir -p /var/www/auction-app
           sudo rm -rf /var/www/auction-app/*
           sudo cp -R * /var/www/auction-app
