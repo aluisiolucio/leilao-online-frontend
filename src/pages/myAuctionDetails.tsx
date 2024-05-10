@@ -332,7 +332,7 @@ export function MyAuctionDetails() {
                                     <h2 className="text-xl font-medium">{batch.title}</h2>
                                     <h2 className="text-md font-medium">Número: {batch.code}</h2>
                                     <p className="text-md font-medium">Início em: {formatDate(batch.startDateTime)}</p>
-                                    <p className="text-md font-medium">Aberto</p>
+                                    <p className="text-md font-medium">{batch.status}</p>
                                     <div>
                                     <p className="text-sm text-muted-foreground">Lance inicial</p>
                                     <h2 className="text-xl font-medium">{formatPrice(batch.price)}</h2>
