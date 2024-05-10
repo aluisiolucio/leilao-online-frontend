@@ -27,8 +27,7 @@ export function HighlightsAuctions() {
         })
     }
 
-    const normalAuctions = auctions
-    const reverseAuctions = auctions?.reverse();
+    const reverseAuctions = auctions?.slice().reverse();
 
     return (
         <div className="min-h-screen text-primary bg-background dark">
@@ -47,7 +46,7 @@ export function HighlightsAuctions() {
                     <section>
                         <div className="flex items-start justify-between gap-4">
                             {
-                                normalAuctions?.length || 0 > 0 ? normalAuctions?.slice(0, 5).map((auction: Auction) => (
+                                reverseAuctions?.length || 0 > 0 ? reverseAuctions?.slice(0, 5).map((auction: Auction) => (
                                     <Link key={Math.random()} to={"/auction/details/" + auction.id}>
                                         <Card
                                             title={auction.title}
@@ -75,7 +74,7 @@ export function HighlightsAuctions() {
                     <section>
                         <div className="flex items-start justify-between gap-4">
                             {
-                                reverseAuctions?.length || 0 > 0 ? reverseAuctions?.slice(0, 8).map((auction: Auction) => (
+                                auctions?.length || 0 > 0 ? auctions?.slice(0, 8).map((auction: Auction) => (
                                     <Link key={Math.random()} to={"/auction/details/" + auction.id}>
                                         <Card
                                             title={auction.title}
