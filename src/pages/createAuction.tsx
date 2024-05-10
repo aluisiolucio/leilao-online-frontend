@@ -257,7 +257,7 @@ export function CreateAuction() {
 
             <div className="space-y-2 w-full">
               <Label htmlFor="contactPhone">Contato do leiloeiro</Label>
-              <Input id="contactPhone" type="tel" placeholder="(xx) x xxxx-xxxx" value={auction.contactPhone} onChange={handleInputChange} />
+              <Input id="contactPhone" type="tel" placeholder="(99) 9 9999-9999" value={auction.contactPhone} onChange={handleInputChange} />
             </div>
           </div>
 
