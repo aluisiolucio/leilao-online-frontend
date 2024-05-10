@@ -45,9 +45,8 @@ export function HighlightsAuctions() {
                         <div className="flex items-start justify-between gap-4">
                             {
                                 auctions?.length || 0 > 0 ? auctions?.slice(0, 5).map((auction: Auction) => (
-                                    <Link to={"/auction/details/" + auction.id}>
+                                    <Link key={Math.random()} to={"/auction/details/" + auction.id}>
                                         <Card
-                                            key={auction.id}
                                             title={auction.title}
                                             description={""}
                                             image={auction.imagePath}
@@ -74,9 +73,8 @@ export function HighlightsAuctions() {
                         <div className="flex items-start justify-between gap-4">
                             {
                                 auctions?.length || 0 > 0 ? auctions?.reverse().slice(0, 8).map((auction: Auction) => (
-                                    <Link to={"/auction/details/" + auction.id}>
+                                    <Link key={Math.random()} to={"/auction/details/" + auction.id}>
                                         <Card
-                                            key={auction.id}
                                             title={auction.title}
                                             description={""}
                                             aspect="aspect-square"
