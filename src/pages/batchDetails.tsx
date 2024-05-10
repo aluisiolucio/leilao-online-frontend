@@ -26,6 +26,10 @@ type Batch = {
     isEnrolled: boolean;
     isConfirmation: boolean;
     startDateTime: string;
+    winner: {
+        name: string;
+    },
+    closingPrice: number;
     images: string[];
 }
 
@@ -156,6 +160,12 @@ export function BatchDetails() {
             toast.info('Info!', {
                 description: params.message
             })
+
+            if (params.message.includes("Vencedor:")) {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
         } else {
             const token = localStorage.getItem('accessToken');
             const decoded = jwtDecode<JwtDecoded>(token || '');
@@ -277,7 +287,7 @@ export function BatchDetails() {
 
                 <Separator className="col-span-4 my-6" />
 
-                <div className="col-span-4 text-xl font-semibold mb-3">Lances em tempo real</div>
+                <div className="col-span-4 text-xl font-semibold mb-3">{ batch?.winner.name ? ("") : ("Lances em tempo real")  }</div>
                 {/* <Batchs lances={lances} />
                 <CardSendBatch batchId={id || ''} callback={callback} />   */}
 
@@ -288,9 +298,19 @@ export function BatchDetails() {
                             <CardSendBatch batchId={id || ''} callback={callback} />  
                         </>
                     ) : (
-                        <div className="col-span-4 flex flex-col items-center space-y-2 text-muted-foreground p-3">
-                            <Layers size={52}/>
-                            <p>Lote fechado para receber lances.</p>
+                        <div className="col-span-4 flex flex-col items-center space-y-2 p-3">
+                            {
+                                batch?.winner.name ? (
+                                    <div className="flex items-center gap-2">
+                                        <p className="text-2xl font-medium">Lote arrematado pelo valor de R$ {formatPrice(batch?.closingPrice || 0)}, por {batch?.winner.name}</p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <Layers size={52} className="text-muted-foreground"/>
+                                        <p className="text-muted-foreground">Lote fechado para receber lances.</p>
+                                    </>
+                                )
+                            }
                         </div>
                     )
                 }              
