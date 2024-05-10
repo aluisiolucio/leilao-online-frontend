@@ -166,7 +166,7 @@ export function SheetForm({ isOpen, onClose, addBatch }: SheetFormProps) {
                 <Label htmlFor="openingHour">Horário</Label>
                 <Input
                   id="openingHour"
-                  type="text"
+                  type="time"
                   placeholder="00:00"
                   value={batch.openingHour}
                   onChange={handleInputChange}
