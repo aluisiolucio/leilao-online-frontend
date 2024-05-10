@@ -302,7 +302,7 @@ export function BatchDetails() {
                             {
                                 batch?.winner.name ? (
                                     <div className="flex items-center gap-2">
-                                        <p className="text-2xl font-medium">Lote arrematado pelo valor de R$ {formatPrice(batch?.closingPrice || 0)}, por {batch?.winner.name}</p>
+                                        <p className="text-2xl font-medium">Lote arrematado pelo valor de R$ {formatPrice(batch?.closingPrice || 0)} por {batch?.winner.name}</p>
                                     </div>
                                 ) : (
                                     <>
