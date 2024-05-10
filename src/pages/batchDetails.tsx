@@ -228,7 +228,7 @@ export function BatchDetails() {
                             </Button>
 
                             {
-                                batch?.status == 'Aguardando participantes' && (
+                                (batch?.status == 'Aguardando participantes' && batch.isEnrolled) && (
                                     <Button
                                         type="button"
                                         onClick={handleConfirmInscription}
@@ -240,7 +240,7 @@ export function BatchDetails() {
                                             batch?.isConfirmation ? 'Confirmado' : 'Confirmar participação'
                                         }
                                     </Button>
-                                ) || batch?.status == 'Em andamento' && (
+                                ) || (batch?.status == 'Em andamento' && batch.isEnrolled) && (
                                     <Button
                                         type="button"
                                         onClick={handleConfirmInscription}
