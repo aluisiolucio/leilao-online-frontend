@@ -37,7 +37,7 @@ export function Header({ title, subtitle, avatarImgSrc, avatarAlt }: HeaderProps
                 <DropdownMenuContent className="w-56 dark">
                     <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
+                    {/* <DropdownMenuGroup>
                         <DropdownMenuItem>
                             Perfil
                         </DropdownMenuItem>
@@ -45,7 +45,7 @@ export function Header({ title, subtitle, avatarImgSrc, avatarAlt }: HeaderProps
                             Configurações
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
+                    <DropdownMenuSeparator /> */}
                     <DropdownMenuGroup>
                         <DropdownMenuItem className="font-medium" onClick={() => {
                             localStorage.removeItem("accessToken")
