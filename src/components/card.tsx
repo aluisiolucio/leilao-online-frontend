@@ -10,7 +10,7 @@ type CardProps = {
 export function Card({ title, description, image, aspect="aspect-[3/4]" }: CardProps) {
     return (
         <div className={`space-y-3`}>
-            <div className="overflow-hidden rounded-md">
+            <div className="overflow-hidden rounded-md w-60">
                 <img
                     className={`h-auto w-auto object-cover transition-all hover:scale-105 ${aspect}`}
                     src={image} alt="Imagem card" />
