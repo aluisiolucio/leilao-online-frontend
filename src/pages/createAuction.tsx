@@ -71,9 +71,11 @@ export function CreateAuction() {
     contactPhone: "",
     category: ""
   });
+
+  const host = import.meta.env.VITE_EC2_IP;
   const [batchs, setBatchs] = useState<BatchDataForm[]>([]);
   const { error, responseData, sendRequest } = useSend<Response>(
-    "http://3.239.191.235:3000/api/auction",
+    `http://${host}:3000/api/auction`,
     true
   );
 

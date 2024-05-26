@@ -22,11 +22,12 @@ export function BatchsHTTP({ batchId }: { batchId: string }) {
     const userId = decoded.id;
 
     const endOfListRef = useRef<HTMLDivElement | null>(null);
+    const host = import.meta.env.VITE_EC2_IP;
 
     useEffect(() => {
         const interval = setInterval(async () => {
             try {
-                const response = await axios.get('http://3.239.191.235:3000/api/batch/' + batchId + '/lances',
+                const response = await axios.get(`http://${host}:3000/api/batch/` + batchId + '/lances',
                     {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('accessToken')}`

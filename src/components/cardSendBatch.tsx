@@ -35,7 +35,8 @@ export function CardSendBatch({ batchId, callback }: Lance) {
             return;
         }
 
-        const socket = new WebSocket(`ws://3.239.191.235:3000/api/batch/${batchId}/bids`);
+        const host = import.meta.env.VITE_EC2_IP;
+        const socket = new WebSocket(`ws://${host}:3000/api/batch/${batchId}/bids`);
         socketRef.current = socket;
 
         socket.onopen = () => {

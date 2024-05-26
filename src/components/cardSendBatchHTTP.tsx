@@ -11,8 +11,9 @@ type Lance = {
 export function CardSendBatchHTTP({ batchId }: Lance) {
     const [batchValue, setBatchValue] = useState<string>('');
 
+    const host = import.meta.env.VITE_EC2_IP;
     const { error, sendRequest } = useSend<any>(
-        "http://3.239.191.235:3000/api/batch/lances",
+        `http://${host}:3000/api/batch/lances`,
         true
     );
 

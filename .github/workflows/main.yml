@@ -22,10 +22,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "VITE_S3_BUCKET=${{ secrets.S3_BUCKET }}" >> $GITHUB_ENV
-          echo "VITE_REGION=${{ secrets.REGION }}" >> $GITHUB_ENV
-          echo "VITE_AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          echo "VITE_AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "VITE_EC2_IP=${{ secrets.EC2_IP }}" >> $GITHUB_ENV
 
       - name: Build
         run: npm run build
