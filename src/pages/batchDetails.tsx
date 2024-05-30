@@ -289,7 +289,7 @@ export function BatchDetails() {
 
                 <Separator className="col-span-4 my-6" />
 
-                <div className="col-span-4 text-xl font-semibold mb-3">{ batch?.winner.name ? ("") : ("Lances em tempo real")  }</div>
+                <div className="col-span-4 text-xl font-semibold mb-3">{ batch?.winner.name ? ("") : ("Lances")  }</div>
                 {/* <Batchs lances={lances} />
                 <CardSendBatch batchId={id || ''} callback={callback} />   */}
 
