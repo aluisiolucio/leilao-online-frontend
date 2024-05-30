@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const host = import.meta.env.VITE_EC2_IP;
 const api = axios.create({
-    baseURL: `http://${host}:3000/api/`
+    baseURL: `http://${host}:5555/api/`
 });
 
 type QueryParams = {

@@ -75,7 +75,7 @@ export function CreateAuction() {
   const host = import.meta.env.VITE_EC2_IP;
   const [batchs, setBatchs] = useState<BatchDataForm[]>([]);
   const { error, responseData, sendRequest } = useSend<Response>(
-    `http://${host}:3000/api/auction`,
+    `http://${host}:5555/api/auction`,
     true
   );
 

@@ -73,12 +73,12 @@ export function BatchDetails() {
 
     const host = import.meta.env.VITE_EC2_IP;
     const { error: errorPost, responseData, sendRequest } = useSend<Response>(
-        `http://${host}:3000/api/batch/enroll`,
+        `http://${host}:5555/api/batch/enroll`,
         true
     );
 
     const { error: errorPatch, responseData: dataPatch, updateRequest } = usePatch<ConfirmInscription>(
-        `http://${host}:3000/api/batch/confirm`,
+        `http://${host}:5555/api/batch/confirm`,
         true
     );
 
