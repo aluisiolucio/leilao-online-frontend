@@ -22,7 +22,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "VITE_EC2_IP=${{ secrets.EC2_IP }}" >> $GITHUB_ENV
+          echo "VITE_EC2_IP=${{ secrets.VITE_EC2_IP }}" >> $GITHUB_ENV
 
       - name: Build
         run: npm run build
