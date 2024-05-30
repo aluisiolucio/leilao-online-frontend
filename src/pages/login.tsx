@@ -28,7 +28,7 @@ type InputEmpty = {
 
 export function Login() {
   const host = import.meta.env.VITE_EC2_IP;
-  const { error, responseData, sendRequest } = useSend<ApiResponse>(`http://${host}:5555/api/auth/signin`);
+  const { error, responseData, sendRequest } = useSend<ApiResponse>(`http://${host}/api/auth/signin`);
   const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
   const [inputIsEmpty, setinputIsEmpty] = useState<InputEmpty>({ email: false, password: false });
 

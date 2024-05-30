@@ -27,7 +27,7 @@ export function BatchsHTTP({ batchId }: { batchId: string }) {
     useEffect(() => {
         const interval = setInterval(async () => {
             try {
-                const response = await axios.get(`http://${host}:5555/api/batch/` + batchId + '/lances',
+                const response = await axios.get(`http://${host}/api/batch/` + batchId + '/lances',
                     {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('accessToken')}`

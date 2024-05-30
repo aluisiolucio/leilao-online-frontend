@@ -6,7 +6,7 @@ export const uploadImagesAwsS3 = async (image: File) => {
     try {
         const host = import.meta.env.VITE_EC2_IP;
         const response = await axios.get(
-            `http://${host}:5555/api/auth/presigned-url?key=${encodeURIComponent(image.name)}`,
+            `http://${host}/api/auth/presigned-url?key=${encodeURIComponent(image.name)}`,
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('accessToken')}`
