@@ -1,5 +1,5 @@
-import { Batchs } from "@/components/batchs";
-import { CardSendBatch } from "@/components/cardSendBatch";
+// import { Batchs } from "@/components/batchs";
+// import { CardSendBatch } from "@/components/cardSendBatch";
 import { Carousel } from "@/components/carousel";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
@@ -10,10 +10,12 @@ import { usePatch } from "@/hooks/usePatch";
 import { useSend } from "@/hooks/useSend";
 import { formatIsoDate, formatPrice } from "@/lib/utils";
 import { Layers, TicketPlus, Waypoints } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { jwtDecode } from 'jwt-decode';
+// import { jwtDecode } from 'jwt-decode';
+import { BatchsHTTP } from "@/components/batchsHTTP";
+import { CardSendBatchHTTP } from "@/components/cardSendBatchHTTP";
 
 type Batch = {
     id: string;
@@ -46,26 +48,26 @@ type Response = {
     id: string;
 }
 
-type Lance = {
-    value: string;
-    userName: string;
-    isMy: boolean;
-    code: string;
-    time: string;
-}
+// type Lance = {
+//     value: string;
+//     userName: string;
+//     isMy: boolean;
+//     code: string;
+//     time: string;
+// }
 
-type CallbackParams = {
-    value: string;
-    userName: string;
-    userId: string;
-    code: string;
-    type: string;
-    message: string;
-}
+// type CallbackParams = {
+//     value: string;
+//     userName: string;
+//     userId: string;
+//     code: string;
+//     type: string;
+//     message: string;
+// }
 
-type JwtDecoded = {
-    id: string;
-}
+// type JwtDecoded = {
+//     id: string;
+// }
 
 export function BatchDetails() {
     const { id } = useParams()
@@ -124,7 +126,7 @@ export function BatchDetails() {
           });
         } else if (responseData) {
             toast.success("Sucesso!", {
-                description: "Inscrição feita com suceeso.",
+                description: "Inscrição feita com sucesso.",
             });
 
             setTimeout(() => {
@@ -149,43 +151,43 @@ export function BatchDetails() {
         }
     }, [errorPatch, dataPatch]);
 
-    const [lances, setLances] = useState<Lance[]>([]);
+    // const [lances, setLances] = useState<Lance[]>([]);
 
-    const callback = (params: CallbackParams) => {
-        if (params.type === 'error') {
-            toast.error('Oops!', {
-                description: params.message
-            })
+    // const callback = (params: CallbackParams) => {
+    //     if (params.type === 'error') {
+    //         toast.error('Oops!', {
+    //             description: params.message
+    //         })
 
-            return;
-        } else if (params.type === 'info') {
-            toast.info('Info!', {
-                description: params.message
-            })
+    //         return;
+    //     } else if (params.type === 'info') {
+    //         toast.info('Info!', {
+    //             description: params.message
+    //         })
 
-            if (params.message.includes("Vencedor:")) {
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-            }
-        } else {
-            const token = localStorage.getItem('accessToken');
-            const decoded = jwtDecode<JwtDecoded>(token || '');
-            const userId = decoded.id;
+    //         if (params.message.includes("Vencedor:")) {
+    //             setTimeout(() => {
+    //                 window.location.reload();
+    //             }, 2000);
+    //         }
+    //     } else {
+    //         const token = localStorage.getItem('accessToken');
+    //         const decoded = jwtDecode<JwtDecoded>(token || '');
+    //         const userId = decoded.id;
 
-            const newLance: Lance = {
-                value: params.value,
-                userName: params.userName,
-                isMy: params.userId === userId,
-                code: params.code,
-                time: new Date().toLocaleTimeString()
-            }
+    //         const newLance: Lance = {
+    //             value: params.value,
+    //             userName: params.userName,
+    //             isMy: params.userId === userId,
+    //             code: params.code,
+    //             time: new Date().toLocaleTimeString()
+    //         }
 
-            setLances([...lances, newLance]);
+    //         setLances([...lances, newLance]);
 
-            lances.push(newLance);
-        }
-    }
+    //         lances.push(newLance);
+    //     }
+    // }
 
     return (
         <div className={`min-h-screen text-primary bg-background dark py-6 max-w-7xl mx-auto space-y-12`}>
@@ -294,10 +296,12 @@ export function BatchDetails() {
                 <CardSendBatch batchId={id || ''} callback={callback} />   */}
 
                 {
-                    batch?.status === 'Em andamento' ? (
+                    batch?.status === 'Em andamento' && batch.isEnrolled && batch.isConfirmation ? (
                         <>
-                            <Batchs lances={lances || []} />
-                            <CardSendBatch batchId={id || ''} callback={callback} />  
+                            {/* <Batchs lances={lances || []} />
+                            <CardSendBatch batchId={id || ''} callback={callback} />   */}
+                            <BatchsHTTP batchId={id || ''} />
+                            <CardSendBatchHTTP batchId={id || ''} />
                         </>
                     ) : (
                         <div className="col-span-4 flex flex-col items-center space-y-2 p-3">

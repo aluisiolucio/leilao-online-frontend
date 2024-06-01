@@ -10,7 +10,7 @@ type JwtDecoded = {
 }
 
 export function BatchsHTTP({ batchId }: { batchId: string }) {
-    const { data: initialLances, error } = useFetch<any>('/batch/' + batchId + '/lances');
+    const { data: initialLances, error } = useFetch<any>('/batch/' + batchId + '/get-lances');
     const [lances, setLances] = useState(initialLances);
 
     if (error) {
@@ -27,7 +27,7 @@ export function BatchsHTTP({ batchId }: { batchId: string }) {
     useEffect(() => {
         const interval = setInterval(async () => {
             try {
-                const response = await axios.get(`http://${host}/api/batch/` + batchId + '/lances',
+                const response = await axios.get(`http://${host}/api/batch/` + batchId + '/get-lances',
                     {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('accessToken')}`

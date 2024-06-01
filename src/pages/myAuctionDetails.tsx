@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { formatDate, formatPrice } from "@/lib/utils";
-import { Plus, Save, SquarePen, Trash2 } from "lucide-react";
+import { Plus, Save, Trash2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
@@ -136,9 +136,9 @@ export function MyAuctionDetails() {
     }
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
+  // const handleEditClick = () => {
+  //   setIsEditing(true);
+  // };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
@@ -277,9 +277,9 @@ export function MyAuctionDetails() {
         
         {!isEditing ? (
             <div className="col-span-3 flex items-center justify-end">
-                <Button type="button" variant={"link"} onClick={handleEditClick}>
+                {/* <Button type="button" variant={"link"} onClick={handleEditClick}>
                 <SquarePen size={26} />
-                </Button>
+                </Button> */}
             </div>
         ) : (
             <div className="col-span-3 flex items-center justify-between">
@@ -299,8 +299,8 @@ export function MyAuctionDetails() {
 
         <div className="flex items-center justify-between col-span-3">
           <div className="space-y-2">
-            <h3 className="text-lg font-medium">Adicione um lote</h3>
-            <p className="text-sm text-muted-foreground">Para criar um leilão ele deve possuir ao menos um lote.</p>
+            <h3 className="text-lg font-medium">Lotes ({auction?.batchs.length})</h3>
+            {/* <p className="text-sm text-muted-foreground">Para criar um leilão ele deve possuir ao menos um lote.</p> */}
           </div>
 
           {
@@ -318,7 +318,7 @@ export function MyAuctionDetails() {
         <div className="space-y-6 col-span-3">
           <div className="space-y-8">
             <div className={`rounded-xl bg-card text-card-foreground shadow p-5 ${lengthAuctionBatchs + batchsForm.length > 0 ? 'border' : ''}`}>
-                {
+                { // TODO: Adicionar modal que exibe as informações do usuário que venceu o leilão
                     auction?.batchs.map((batch: Batch, index) => (
                         <div key={batch.code}>
                             <div className="flex items-center gap-5">

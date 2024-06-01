@@ -13,7 +13,7 @@ export function CardSendBatchHTTP({ batchId }: Lance) {
 
     const host = import.meta.env.VITE_EC2_IP;
     const { error, sendRequest } = useSend<any>(
-        `http://${host}/api/batch/lances`,
+        `http://${host}/api/batch/save-lance`,
         true
     );
 
