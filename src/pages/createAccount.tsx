@@ -64,12 +64,17 @@ export function CreateAccount() {
       });
     } else if (responseData) {
       toast.success('Conta criada com sucesso!', {
-        description: "Volte até a página de login e acesse sua conta.",
-        action: {
-          label: "Ir para o login",
-          onClick: () => navigate('/'),
-        },
+        description: 'Você será redirecionado para a página de login.',
+        // description: "Volte até a página de login e acesse sua conta.",
+        // action: {
+        //   label: "Ir para o login",
+        //   onClick: () => navigate('/'),
+        // },
       });
+
+      setTimeout(() => {
+        navigate('/');
+      }, 4000);
     }
   }, [error, responseData]);
 
