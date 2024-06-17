@@ -46,7 +46,7 @@ export function HighlightsAuctions() {
                     <section>
                         <div className="flex items-start gap-4">
                             {
-                                reverseAuctions?.length || 0 > 0 ? reverseAuctions?.slice(0, 5).map((auction: Auction) => (
+                                auctions?.length || 0 > 0 ? auctions?.slice(0, 5).map((auction: Auction) => (
                                     <Link key={Math.random()} to={"/auction/details/" + auction.id}>
                                         <Card
                                             title={auction.title}
@@ -74,7 +74,7 @@ export function HighlightsAuctions() {
                     <section>
                         <div className="flex items-start gap-4">
                             {
-                                auctions?.length || 0 > 0 ? auctions?.slice(0, 8).map((auction: Auction) => (
+                                reverseAuctions?.length || 0 > 0 ? reverseAuctions?.slice(0, 8).map((auction: Auction) => (
                                     <Link key={Math.random()} to={"/auction/details/" + auction.id}>
                                         <Card
                                             title={auction.title}
