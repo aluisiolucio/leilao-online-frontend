@@ -72,7 +72,7 @@ export function CreateAuction() {
     category: ""
   });
 
-  const host = import.meta.env.VITE_EC2_IP;
+  const host = import.meta.env.API_HOST_PORT;
   const [batchs, setBatchs] = useState<BatchDataForm[]>([]);
   const { error, responseData, sendRequest } = useSend<Response>(
     `http://${host}/api/auction`,

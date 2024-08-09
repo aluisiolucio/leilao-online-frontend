@@ -22,7 +22,7 @@ export function BatchsHTTP({ batchId }: { batchId: string }) {
     const userId = decoded.id;
 
     const endOfListRef = useRef<HTMLDivElement | null>(null);
-    const host = import.meta.env.VITE_EC2_IP;
+    const host = import.meta.env.API_HOST_PORT;
 
     useEffect(() => {
         const interval = setInterval(async () => {

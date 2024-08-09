@@ -73,7 +73,7 @@ export function BatchDetails() {
     const { id } = useParams()
     let { data: batch, error } = useFetch<Batch>('batch/' + id);
 
-    const host = import.meta.env.VITE_EC2_IP;
+    const host = import.meta.env.API_HOST_PORT;
     const { error: errorPost, responseData, sendRequest } = useSend<Response>(
         `http://${host}/api/batch/enroll`,
         true
