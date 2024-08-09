@@ -30,7 +30,7 @@ type InputEmpty = {
 }
 
 export function CreateAccount() {
-  const host = import.meta.env.API_HOST_PORT;
+  const host = import.meta.env.VITE_API_HOST_PORT;
   const { error, responseData, sendRequest } = useSend<ApiResponse>(`http://${host}/api/auth/signup`);
   const [formData, setFormData] = useState<FormData>({ name: '', email: '', password: '', confirmPassword: '' });
   const [inputIsEmpty, setinputIsEmpty] = useState<InputEmpty>({ name: false, email: false, password: false, confirmPassword: false });

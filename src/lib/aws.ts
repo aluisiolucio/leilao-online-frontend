@@ -4,7 +4,7 @@ export const uploadImagesAwsS3 = async (image: File) => {
     if (!image) return;
 
     try {
-        const host = import.meta.env.API_HOST_PORT;
+        const host = import.meta.env.VITE_API_HOST_PORT;
         const response = await axios.get(
             `http://${host}/api/auth/presigned-url?key=${encodeURIComponent(image.name)}`,
             {

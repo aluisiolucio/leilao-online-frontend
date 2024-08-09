@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const host = import.meta.env.API_HOST_PORT;
+const host = import.meta.env.VITE_API_HOST_PORT;
 const api = axios.create({
     baseURL: `http://${host}/api/`
 });
